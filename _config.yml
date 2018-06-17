@@ -13,7 +13,7 @@ paginate: 5
 
 navigation:
  - title: Home
-   url: /index.html
+   url: /
  - title: About
    url: /about
  - title: Contact
@@ -23,6 +23,5 @@ social:
    github: dchakarov
    twitter: gimly
    facebook: dimitar.chakarov
-   email: dimitar@dchakarov.com
 
 google_analytics: ""
