@@ -11,7 +11,7 @@ After a few backs and forths the code I came up with for testing that is we came
 ```swift
 var isLive: Bool {
 	if Device().isSimulator { return false }
-	let isTestFlight = 	Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt" // see https://stackoverflow.com/a/26113597/67667
+	let isTestFlight = Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt" // see https://stackoverflow.com/a/26113597/67667
 	let isDebugConfiguration = _isDebugAssertConfiguration() // see https://stackoverflow.com/a/34532569/67667
 	return !isDebugConfiguration && !isTestFlight
 }
