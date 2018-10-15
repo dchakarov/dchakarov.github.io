@@ -19,4 +19,4 @@ var isLive: Bool {
 
 You can see in the comments where we got our inspiration. As for the `Device().isSimulator` part - we are using the wonderful [DeviceKit framework](https://github.com/dennisweissmann/DeviceKit).
 
-Hope you find this helpful! If you have any suggestions for improving it, please ping me on Twitter @gimly.
+Hope you find this helpful! If you have any suggestions for improving it, please ping me on Twitter [@gimly](https://twitter.com/gimly).
