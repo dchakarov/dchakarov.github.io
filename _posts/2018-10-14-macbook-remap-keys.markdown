@@ -26,6 +26,10 @@ There is one problem with the lookup table - the **§** key is not in it!
 
 I started testing, trying to get to it and, a few minutes later, I found it - *0x700000064*. I executed the command and - ta-da! - the **\`** key was back where it belonged!
 
+``` bash
+$ hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000064,"HIDKeyboardModifierMappingDst":0x700000035}]}'
+```
+
 But wait, we're not done yet. We need that swap to be active forever without you having to run it again every time you restart your machine. My first instinct was to put the command into a .sh file and add it to the Login items in the System Preferences of the Mac. I tried it but for some reason it didn't start the next time I restarted. So I dug deeper and found out I had to create an Automator script and compile it to a binary (app) which I can then safely add to the Login items. A few minutes later I had the final solution :)
 
 The app and the script are [available here](https://github.com/dchakarov/restore-tilde).
