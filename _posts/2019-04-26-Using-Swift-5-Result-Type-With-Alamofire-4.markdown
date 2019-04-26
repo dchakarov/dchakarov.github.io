@@ -8,8 +8,7 @@ date:   2019-04-26
 
 <span class="dropcap">I</span>f you are anything like me the second thing after downloading Xcode 10.2 for you would be to try out the new Result type. For me that meant changing this:
 
-```
-
+```swift
 enum Result<T> {
 	case success(T)
 	case failure(Error)
@@ -24,7 +23,7 @@ protocol APIClientType {
 ```
 to this:
 
-```
+```swift
 protocol APIClientType {
 	func fetchCities(completion: @escaping (Result<Data, Error>) -> Void)
 	func fetchTheaters(for cityId: Int, completion: @escaping (Result<Data, Error>) -> Void)
