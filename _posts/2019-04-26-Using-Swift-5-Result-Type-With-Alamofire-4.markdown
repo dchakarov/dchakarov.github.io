@@ -5,8 +5,6 @@ date:   2019-04-26
 image:  swift-vs-alamofire.png
 ---
 
-`TL;DR Try Swift.Result`
-
 <span class="dropcap">I</span>f you are anything like me the second thing after downloading Xcode 10.2 for you would be to try out the new Result type. For me that meant changing this:
 
 ```swift
@@ -34,11 +32,13 @@ protocol APIClientType {
 ```
 
 So far so good. `⌘-B`
+
 Nope.
 
 <img src="{{ '/assets/img/conform-protocol-error.png' | prepend: site.baseurl }}" alt="">
 
 Okay, that's easy. I'll just do the same changes in the implementation so my struct conforms to the protocol.
+
 Nope.
 
 <img src="{{ '/assets/img/too-many-type-parameters-error.png' | prepend: site.baseurl }}" alt="">

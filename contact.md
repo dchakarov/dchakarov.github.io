@@ -8,7 +8,7 @@ title: Contact me
   <div class="contactContent">
     <p class="intro">Hey, send me an email if you are feeling lonely.</p>
   </div>
-  <form action="http://formspree.io/dimitar@dchakarov.com" method="POST">
+  <form action="https://formspree.io/dimitar@dchakarov.com" method="POST">
     <label for="name">Name</label>
     <input type="text" id="name" name="name" class="full-width"><br>
     <label for="email">Email Address</label>
