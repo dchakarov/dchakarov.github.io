@@ -2,6 +2,7 @@
 layout: post
 title:  "Using Swift 5 Result Type With Alamofire 4"
 date:   2019-04-26
+image:  swift-vs-alamofire.png
 ---
 
 `TL;DR Try Swift.Result`
@@ -10,25 +11,25 @@ date:   2019-04-26
 
 ```swift
 enum Result<T> {
-	case success(T)
-	case failure(Error)
+  case success(T)
+  case failure(Error)
 }
 
 protocol APIClientType {
-	func fetchCities(completion: @escaping (Result<Data>) -> Void)
-	func fetchTheaters(for cityId: Int, completion: @escaping (Result<Data>) -> Void)
-	func fetchMovies(completion: @escaping (Result<Data>) -> Void)
-	func fetchScreenings(for theaterId: Int, completion: @escaping (Result<Data>) -> Void)
+  func fetchCities(completion: @escaping (Result<Data>) -> Void)
+  func fetchTheaters(for cityId: Int, completion: @escaping (Result<Data>) -> Void)
+  func fetchMovies(completion: @escaping (Result<Data>) -> Void)
+  func fetchScreenings(for theaterId: Int, completion: @escaping (Result<Data>) -> Void)
 }
 ```
 to this:
 
 ```swift
 protocol APIClientType {
-	func fetchCities(completion: @escaping (Result<Data, Error>) -> Void)
-	func fetchTheaters(for cityId: Int, completion: @escaping (Result<Data, Error>) -> Void)
-	func fetchMovies(completion: @escaping (Result<Data, Error>) -> Void)
-	func fetchScreenings(for theaterId: Int, completion: @escaping (Result<Data, Error>) -> Void)
+  func fetchCities(completion: @escaping (Result<Data, Error>) -> Void)
+  func fetchTheaters(for cityId: Int, completion: @escaping (Result<Data, Error>) -> Void)
+  func fetchMovies(completion: @escaping (Result<Data, Error>) -> Void)
+  func fetchScreenings(for theaterId: Int, completion: @escaping (Result<Data, Error>) -> Void)
 }
 ```
 
@@ -49,20 +50,20 @@ Wait, what? [Paul Hudson says](https://www.hackingwithswift.com/articles/161/how
 Ah, I see what's happening here. Alamofire's implementation takes precedence over Swift 5's one. Interesting. Quick googling produced no results, so I started experimenting. First thing I tried was to try with Swift.Result instead of just Result. Funny enough it worked. Problem solved. The final code looks like this:
 
 ```swift
-	func fetchMovies(completion: @escaping (Swift.Result<Data, Error>) -> Void) {
-		let url = endpointUrl(for: .movies)
-		let headers = [
-			"Authorization": authHeader(),
-			"Accept": "application/json"
-		]
-		sessionManager.request(url, headers: headers).responseData { response in
-			guard let data = response.data else {
-				completion(.failure(FetchError.missingData))
-				return
-			}
-			completion(.success(data))
-		}
-	}
+  func fetchMovies(completion: @escaping (Swift.Result<Data, Error>) -> Void) {
+    let url = endpointUrl(for: .movies)
+    let headers = [
+      "Authorization": authHeader(),
+      "Accept": "application/json"
+    ]
+    sessionManager.request(url, headers: headers).responseData { response in
+      guard let data = response.data else {
+        completion(.failure(FetchError.missingData))
+        return
+      }
+      completion(.success(data))
+    }
+  }
 ```
 
 No, there's no twist. It's Friday evening after all. Go enjoy your weekend.
