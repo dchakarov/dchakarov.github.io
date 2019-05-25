@@ -3,6 +3,7 @@ layout: post
 title:  "Me vs. Coffee"
 date:   2019-05-23
 image: coffee-plus-croissant.jpg
+description: From the moment the first thought about coffee appeared in my mind I knew the battle was lost. It didn't matter that it was night time. It didn't matter that I had had four cups of coffee at work already.
 ---
 
 <span class="dropcap">F</span>rom the moment the first thought about coffee appeared in my mind I knew the battle was lost. It didn't matter that it was night time. It didn't matter that I had had four cups of coffee at work already. It didn't matter that I had promised myself I wouldn't drink coffee after 5pm. Nothing mattered. My mind embraced the thought and started fighting for it. Seemingly random thoughts started appearing in my head.
