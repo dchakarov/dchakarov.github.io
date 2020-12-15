@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Preparing the Way[^1]... for M1"
+title:  "Preparing the Way... for M1"
 date:   2020-12-15
 image: preparing-the-way.jpg
 description: Eagerly awaiting my new MacBook Air I created a list of apps I need to install asap.
@@ -10,7 +10,7 @@ description: Eagerly awaiting my new MacBook Air I created a list of apps I need
 
 After a few weeks or months I disconnect the now old SSD and use the iMac for another couple of months. If all goes well, I know I can safely wipe the SSD and get it ready for next year.
 
-Having done that just a month ago (the first stage), I am now in the perfect spot to create a nice list of the apps I actually use, so when my shiny new M1 MacBook Air arrives, I can be prepared. Here we go.
+Having done that just a month ago (the first stage), I am now in the perfect spot to create a nice list of the apps I actually use, so when my shiny new M1 MacBook Air arrives, I can be prepared[^1]. Here we go.
 
 *Telegram* - my favourite messaging app. Gotta love those stickers!
 
