@@ -43,11 +43,11 @@ func heightValid(_ height: String) -> Bool {
 
 It was working great. The only challenge I had was that it was a bit lengthy. If I was to use this approach for the next challenges I needed it to be more modular.
 
-I decided to combine create a framework that gives me a generalised version of this method which I would be able to use going forward. I didn't want to introduce third party dependency managers so I opted for SPM. My goal was to be able to write as little code as possible at the caller side. Here is what I came up with:
+I decided to create a framework that gives me a generalised version of this method which I would be able to use going forward. I didn't want to introduce third party dependency managers so I opted for SPM. My goal was to be able to write as little code as possible at the caller side. Here is what I came up with:
 
 ```swift
 let helper = RegexHelper(pattern: #"(\d{2,3})(cm|in)"#)
 let results = helper.parse(inputString)
 ```
 
-Making the framework open source was a no brainer. [You can get it here](https://github.com/swiftyaf/RegexHelper).
+Making the framework open source was a no brainer. [You can get it here](https://github.com/swiftyaf/RegexHelper). Any questions or suggestions? Ping me on [Twitter](https://twitter.com/gimly) or [raise a pull request](https://github.com/swiftyaf/RegexHelper/pulls).
