@@ -1,29 +1,35 @@
+---
 title: Dimitar Chakarov
-description: I code, I design, I lead, I write, I follow, I play, I deliver, I understand, I teach. Currently @ Just Eat. Say hi.
-
+timezone: UTC
+collections:
+  posts:
+    title: Posts
+    output: true
+  uploads:
+    title: Uploads
+    output: true
+description: I code, I design, I lead, I write, I follow, I play, I deliver, I understand,
+  I teach. Currently @ Just Eat. Say hi.
 url: https://dchakarov.com
-baseurl: ""
-paginate_path: "blog/page:num/"
+baseurl: ''
+paginate_path: blog/page:num/
 permalink: blog/:title/
-
 markdown: kramdown
 highlighter: rouge
-plugins: [jekyll-paginate]
+plugins:
+- jekyll-paginate
 paginate: 5
-
 navigation:
- - title: Home
-   url: /index.html
- - title: About
-   url: /about
- - title: Contact
-   url: /contact
-
+- title: Home
+  url: "/index.html"
+- title: About
+  url: "/about"
+- title: Contact
+  url: "/contact"
 social:
-   github: dchakarov
-   twitter: gimly
-   linkedin: dchakarov
-   stackoverflow: 67667/dchakarov
-   paypal: dimitarchakarov
-
-google_analytics: "UA-139129566-1"
+  github: dchakarov
+  twitter: gimly
+  linkedin: dchakarov
+  stackoverflow: 67667/dchakarov
+  paypal: dimitarchakarov
+google_analytics: UA-139129566-1

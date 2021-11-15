@@ -1,6 +1,6 @@
 ---
-layout: default
 title: Dimitar Chakarov
+layout: default
 ---
 
 <div id="articles">

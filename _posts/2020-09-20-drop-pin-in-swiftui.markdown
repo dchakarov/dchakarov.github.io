@@ -1,9 +1,11 @@
 ---
+title: Drop Pin in SwiftUI
+date: 2020-09-20 00:00:00 Z
 layout: post
-title:  "Drop Pin in SwiftUI"
-date:   2020-09-20
 image: drop-pin-design.png
-description: When my friend asked me to help her to translate her design into SwiftUI I thought it would be a piece of cake. It's just a bunch of circles, some text, and a custom shape in the middle.
+description: When my friend asked me to help her to translate her design into SwiftUI
+  I thought it would be a piece of cake. It's just a bunch of circles, some text,
+  and a custom shape in the middle.
 ---
 
 <span class="dropcap">W</span>hen my friend [Steli](https://twitter.com/SteliChakarova) asked me to help her to translate her design into SwiftUI I thought it would be a piece of cake. It's just a bunch of circles, some text, and a custom shape in the middle.

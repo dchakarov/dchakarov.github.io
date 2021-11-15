@@ -1,7 +1,7 @@
 ---
+title: My GitHub - A New Beginning
+date: 2018-07-15 00:00:00 Z
 layout: post
-title:  "My GitHub - A New Beginning"
-date:   2018-07-15
 ---
 
 <span class="dropcap">A</span>fter I finished cleaning up [my GitHub account](https://github.com/dchakarov) last month it bugged me how empty it was. On the other side, I didn't want to upload just anything, as that would have lead to another clean up. So I spent a few days thinking about it and in the mean time I managed to read the book [App Architecture](https://www.objc.io/books/app-architecture/) (more on that in the next post) which inspired me to rewrite my two apps currently on the AppStore.

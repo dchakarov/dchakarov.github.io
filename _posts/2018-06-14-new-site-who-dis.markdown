@@ -1,7 +1,7 @@
 ---
+title: new site, who dis?
+date: 2018-06-14 00:00:00 Z
 layout: post
-title:  "new site, who dis?"
-date:   2018-06-14
 ---
 
 <span class="dropcap">A</span>fter a successful redesign of our company website seenit.io I felt inspired to redesign and rearrange my personal web presence. I made a long list of all my websites and all the most important places I had some kind of presence on (i.e. StackOverflow, GitHub, LinkedIn, Twitter) and started planning a strategy. I decided that, since most of these places invite you to link to your personal website, it would be smart to start with that, so I can have something I like to link to.

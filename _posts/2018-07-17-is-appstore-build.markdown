@@ -1,7 +1,7 @@
 ---
+title: Am I Running On A User Device?
+date: 2018-07-17 00:00:00 Z
 layout: post
-title:  "Am I Running On A User Device?"
-date:   2018-07-17
 ---
 
 <span class="dropcap">A</span> common problem every iOS developer has to solve is finding out whether the app is being executed on a user device (via AppStore), a test device (via TestFlight) or a dev device (via Xcode). This is useful for deciding the level of logging, showing and hiding "admin" features, and connecting to the right backend environment.

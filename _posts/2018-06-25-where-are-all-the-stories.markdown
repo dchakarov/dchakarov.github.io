@@ -1,7 +1,7 @@
 ---
+title: where are all the stories?
+date: 2018-06-25 00:00:00 Z
 layout: post
-title:  "where are all the stories?"
-date:   2018-06-25
 ---
 
 <span class="dropcap">I</span>n trying to refresh my online presence, I went through all the things _me_ online and decided to get some stats out. My initial idea was to create a sort of a basic homepage or a single screen app representing me. After some experimenting and testing (meaning that I actually created the app and the homepage and showed it to friends who didn't like it), I decided to take a more streamlined approach to my home page. Mostly because my home page shouldn't be just a glorified CV. In fact, it shouldn't be a CV at all. So I scraped the whole thing and started over, culminating at the current state of it (for now).

@@ -1,7 +1,7 @@
 ---
+title: 'MacBook Keyboard Setup: The Mysterious § Key'
+date: 2018-10-14 00:00:00 Z
 layout: post
-title:  "MacBook Keyboard Setup: The Mysterious § Key"
-date:   2018-10-14
 ---
 
 <span class="dropcap">W</span>hen you start a new job in an office, you usually get a new laptop. If your job is an iOS developer, you probably get a MacBook Pro. The first few days are usually dedicated to setting up your environment, big part of which are the keyboard layout and shortcuts. My first job is to install the Bulgarian keyboard layout and to remap Cmd-Space to switch between English and Bulgarian. I realise this is too specific to me and as such probably has no value to you. A thing a bit more useful for you - the second thing I do is swap the two shortcuts for screenshots. That means Shift-Cmd-4 to save the screenshot of the selected area into the clipboard and Ctrl-Shift-Cmd-4 to save to a file. I realised I was pasting screenshots into chats way more than I was needing them saved for later.

@@ -1,7 +1,7 @@
 ---
+title: Regular Expressions FTW
+date: 2021-01-17 00:00:00 Z
 layout: post
-title:  "Regular Expressions FTW"
-date:   2021-01-17
 image: regex.jpg
 description: A regular expression helper for Swift developers.
 ---

@@ -1,9 +1,10 @@
 ---
+title: Preparing the Way... for M1
+date: 2020-12-15 00:00:00 Z
 layout: post
-title:  "Preparing the Way... for M1"
-date:   2020-12-15
 image: preparing-the-way.jpg
-description: Eagerly awaiting my new MacBook Air I created a list of apps I need to install asap.
+description: Eagerly awaiting my new MacBook Air I created a list of apps I need to
+  install asap.
 ---
 
 <span class="dropcap">E</span>very year when the new macOS is out I do the same thing. I format my second SSD, install the new OS there, boot from it, and start installing the apps I need one by one. I have the luxury of having two SSD drives which makes the whole exercise very easy. Whenever I feel like I am missing something - be that a config file for an app, or some key mappings I can't quite reproduce - I reboot into the previous OS and get what I need.

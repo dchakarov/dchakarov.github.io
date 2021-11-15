@@ -1,6 +1,6 @@
 ---
-layout: default
 title: Contact me
+layout: default
 ---
 
 <div id="contact">
