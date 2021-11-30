@@ -7,7 +7,8 @@ tags:
 - Swift
 - algorithms
 - advent of code
-image: "/uploads/AoC.jpg"
+image: AoC.jpg
+description: An Xcode template repo for a command line app.
 ---
 
 <span class="dropcap">I</span> get an advent calendar every year and I do enjoy opening those tiny chocolates, but that's nothing compared to revealing the next challenge in Advent of Code - my favourite developer event of the year. 
