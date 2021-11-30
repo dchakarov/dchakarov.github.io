@@ -13,7 +13,7 @@ description: An Xcode template repo for a command line app.
 
 <span class="dropcap">I</span> get an advent calendar every year and I do enjoy opening those tiny chocolates, but that's nothing compared to revealing the next challenge in Advent of Code - my favourite developer event of the year. 
 
-Each year we try to save Christmas by solving programming challenges (apart from last year when we were instead trying to save our vacation). It is a very nicely organised competition happening at (https://adventofcode.com/).
+Each year we try to save Christmas by solving programming challenges (apart from last year when we were instead trying to save our vacation). It is a very nicely organised competition happening at <https://adventofcode.com/>.
 
 Last year I was creating a new Xcode project for each task. With 25 days of challenges that can get tedious. This year I decided to prepare a bit and created a GitHub template repo with basic parsing and regex support (using [the framework I created](https://dchakarov.com/blog/regular-expressions-ftw/) last year after the event).
 
