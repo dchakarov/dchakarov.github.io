@@ -41,11 +41,11 @@ Well, not that fast.
 
 $ `jekyll`
 
-> Could not find proper version of jekyll (4.1.1) in any of the sources
+*Could not find proper version of jekyll (4.1.1) in any of the sources*
 
 $ `bundle install`
 
-> listen-3.2.1 requires ruby version >= 2.2.7, ~> 2.2, which is incompatible with the current version, ruby 3.1.2p20
+*listen-3.2.1 requires ruby version >= 2.2.7, ~> 2.2, which is incompatible with the current version, ruby 3.1.2p20*
 
 It took me embarrassingly long time at this moment to figure out that the issue was my existing `Gemfile.lock` with an older version of jekyll in it.
 
