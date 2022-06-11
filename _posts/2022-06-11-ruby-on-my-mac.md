@@ -6,50 +6,57 @@ image: ruby.jpg
 description: How to install Ruby on my mac.
 ---
 
-<span class="dropcap">E</span>very year when the new macOS is out I do the same thing. I format my second SSD, install the new OS there, boot from it, and start installing the apps I need one by one. I have the luxury of having two SSD drives which makes the whole exercise very easy. Whenever I feel like I am missing something - be that a config file for an app, or some key mappings I can't quite reproduce - I reboot into the previous OS and get what I need.
+<span class="dropcap">O</span>nce again I went deep into a rabbit hole. It started with writing an article about Apple's TabularData framework (coming soon) and deciding to preview it. I am using Jekyll for this blog and it's hosted on GitHub Pages. From what I read, in order to preview it, I needed to enable drafts. For that to happen, I needed to run Jekyll locally. This is where the fun started.
 
-After a few weeks or months I disconnect the now old SSD and use the iMac for another couple of months. If all goes well, I know I can safely wipe the SSD and get it ready for next year.
+Installing Jekyll locally is a piece of cake, [they say](https://jekyllrb.com/docs/installation/macos/). You _just_ need Ruby. To manage that, you need a _ruby version manager_, and they recommend `chruby`. That's all good but I use [Fish shell](https://fishshell.com) and that's where things get a tad more complicated.
 
-Having done that just a month ago (the first stage), I am now in the perfect spot to create a nice list of the apps I actually use, so when my shiny new M1 MacBook Air arrives, I can be prepared[^1]. Here we go.
+I tried with `brew install chruby ruby-install`, `brew install chruby-fish`, `ruby-install ruby-3.1.2`, `echo 'ruby-3.1.2' >> .ruby-version` + a bunch more commands from various sources. And, of course, I restarted my Mac a bunch of times _just to be sure_. It didn't work. Then I stumbled upon [Ruby on Mac](https://www.rubyonmac.dev). I felt excited at first but then decided I don't want to spend $49 just to install Ruby. I am not even a ruby developer.
 
-*Telegram* - my favourite messaging app. Gotta love those stickers!
+Then I remembered that we have a "How to get your Mac up and running" guide in my team's wiki. And part of the guide is on how to install Ruby because - doh - we are iOS developers, after all.[^1]
 
-*Spark* - my email client of choice.
+Anywho, here's what I did, and what I wanna have written down for, you know, _next time_.
 
-*Xcode + Darcula + Source Code Pro* - I have some code to write.
-  
-*WhatsApp* - some people are not on Telegram. Sigh.
+0. Uninstall chruby, chruby-fish, delete the .rubies folder, etc. (skip that on fresh install)
+1. `brew install gnupg`
+2. `ln -s /opt/homebrew/bin/gpg /opt/homebrew/bin/gpg2`
+2. `gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB`
+3. `curl -sSL https://get.rvm.io | bash -s stable`
+4. `curl -L --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish`
+5. `echo "rvm default" >> ~/.config/fish/config.fish`
+6. (optional?) `rvm osx-ssl-certs update all`
+7. `rvm install 3.1.2` (obviously, update that)
+8. `rvm list`
+9. `ruby -v`
 
-*iTerm2 + Fish + Oh My Fish + Homebrew* - gotta pimp my terminal.
+And then install Jekyll (even if you don't need Jekyll, you might want to install openssl)
+1. `brew install openssl`
+2. `set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@3/lib"`
+3. `set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@3/include"`
+4. `set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl@3/lib/pkgconfig"`
+5. `gem install jekyll`
 
-*SourceTree* - yes, I know git. But I like clicking on things.
+Voila.
 
-*Slack* - I have to. It's 2020.
+Well, not that fast.
 
-*Tor* - for the privacy.
+$ `jekyll`
 
-*ForkLift* - good for babysitting my servers.
+> Could not find proper version of jekyll (4.1.1) in any of the sources
 
-*Ulysses* - best app for writing fiction.
+$ `bundle install`
 
-*Downie* - gotta save those tubes.
+> listen-3.2.1 requires ruby version >= 2.2.7, ~> 2.2, which is incompatible with the current version, ruby 3.1.2p20
 
-*Gemini* - great for getting rid of low quality photos you're too lazy to search for manually.
+It took me embarrassingly long time at this moment to figure out that the issue was my existing `Gemfile.lock` with an older version of jekyll in it.
 
-*Skype* - some people are not even on WhatsApp. Double sigh.
+$ `rm Gemfile.lock`
 
-*Visual Studio Code* - best app for writing non-fiction.
+$ `bundle install`
 
-*OneNote* - better notes than Notes.
+$ `jekyll`
 
-*IINA* - best video player in town.
+Finally!
 
-*Dropbox* - my files are there.
+Stay tuned for the "How to draft an article on Jekyll."
 
-*Instapaper* - for saving articles I never read.
-
-In preparing the list I was tempted to sort it by priority, or importance. That's not an easy task. How do you define priority? Is it more important to have a good app to code, or a good app to watch a movie? Moreover, I am now going to use this list on two macs with somewhat different usage patterns. In short, consider the list above _not sorted_. Thank you.
-
-<span>Photo by <a href="https://unsplash.com/@anniespratt?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Annie Spratt</a> on <a href="https://unsplash.com/s/photos/path-in-the-snow?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
-
-[^1]: Sorry, John
+[^1]: I blame Cocoapods.
