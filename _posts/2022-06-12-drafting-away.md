@@ -3,7 +3,8 @@ title: Drafting away
 date: 2022-06-12 00:00:00 Z
 layout: post
 image: 
-description: How to use the Jekyll drafting feature so we don't publish our article prematurely.
+description: How to use the Jekyll drafting feature so we don't publish our article
+  prematurely.
 ---
 
 # Drafting away
