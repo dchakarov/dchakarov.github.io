@@ -46,3 +46,5 @@ Step 5: Go to http://127.0.0.1:4000 and see your draft post in the list.
 Once you are ready to go live, move the post over to `_posts` and don't forget to add the date to the file name, e.g. `2022-11-11-drafting-away.md`.
 
 Much more professional, innit?
+
+P.S. Ideally, I want to be able to send the draft post to a friend to review before publishing. I am not sure that's possible on GitHub though. Please [ping me on Twitter](https://twitter.com/gimly) if you know how.
