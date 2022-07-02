@@ -1,12 +1,12 @@
 ---
 title: Let me filter that for you
-date: 2022-05-23 00:00:00 Z
+date: 2022-07-03 00:00:00 Z
 layout: post
-image: 
-description: 
+image: filtering.jpg
+description: A love story between Swift and the Stock market
 ---
 
-_**TL;DR** Let’s create a Swift script that will take a list of stocks and a finance API key and give us a shortlist of dividend stocks we should consider investing in. Our script focuses on Freetrade & uses a Yahoo Finance alternative API, but it can be easily adapted to work with any list of stock tickers and any finance API. Get the code here._
+_**TL;DR** Let’s create a Swift script that will take a list of stocks and a finance API key and give us a shortlist of dividend stocks we should consider investing in. Our script focuses on Freetrade & uses a Yahoo Finance alternative API, but it can be easily adapted to work with any list of stock tickers and any finance API. [Get the code here](https://github.com/swiftyaf/StockTables)._
 
 Every Friday at Just Eat Takeaway we have a meeting called WWDC-watchers. It’s organised and hosted by the iOS team and open to everyone. We spend half an hour discussing a WWDC (or related) video we picked and watched during the week leading to the meeting. We keep it simple - everyone sticks a bunch of sticky notes on a dedicated virtual board, and at the meeting, we go over them one by one, sharing what we learned and how we feel about the topic.
 
@@ -38,7 +38,7 @@ Before we dive into Xcode let's have a look at the data. We have around 6300 com
 As you can see, there is no information about any market performance metrics - dividend payments, dividend growth, market cap, current price, etc. The only properties we can use for our purposes are Title, Currency (if we want to focus on a given market, e.g. the US), ISA_eligible (as my account is an ISA), Symbol, and PLUS_only, as I am wondering whether to subscribe to their PLUS plan.
 
 Start with creating a command line Xcode project. Add the ArgumentParser package by going to File -> Add Packages and selecting it from the Apple Swift Packages collection. Next, since we want to have the CSV file as an input to our script, let's add it to the scheme arguments like so:
-`<screenshot>`
+<img src="{{ '/assets/img/scheme-argument.png' | prepend: site.baseurl }}" style="border-width: 1px; border-color: #b20600; border-style: double;" alt="">
 
 Next, let's start by parsing our file and printing out what we read:
 
@@ -54,6 +54,7 @@ struct DivStocks: AsyncParsableCommand {
 
     func run() async throws {
         let fileUrl = URL(fileURLWithPath: inputFile)
+        let pathUrl = fileUrl.deletingLastPathComponent()
         let options = CSVReadingOptions(hasHeaderRow: true,
                                         delimiter: ",")
         let fullDataFrame = try! DataFrame(
@@ -75,7 +76,7 @@ struct DivStocks: AsyncParsableCommand {
 }
 ```
 
-Please note, that I am not gonna go into much detail on the TabularData framework itself, as this is very well covered in both the video and the article I linked above.
+Please note that I will not go into much detail on the TabularData framework itself, as this is very well covered in both the video and the article I linked above.
 
 Running the script in Xcode should give us something like this in the console:
 
@@ -110,7 +111,7 @@ Running the script in Xcode should give us something like this in the console:
 6,359 rows, 5 columns
 </pre>
 
-Let's filter out non-US companies and only include the ones that require a paid subscription and are ISA-eligible. This will help me decide if a PLUS plan subscription is worth my money.
+Let’s filter out non-US companies and only include those that require a paid subscription and are ISA-eligible. This will help me decide if a PLUS plan subscription is worth my money.
 
 ```swift
         let dataFrame = fullDataFrame
@@ -122,7 +123,7 @@ Let's filter out non-US companies and only include the ones that require a paid 
         print(dataFrame)
 ```
 
-We get a much shorter list of 445 companies. It's still a lot to sip through one by one, but a big improvement over the 6359 companies above.
+We get a much shorter list of 445 companies. It's still a lot to sip through one by one, but a significant improvement over the 6359 companies above.
 
 <pre>
 ┏━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -155,7 +156,7 @@ We get a much shorter list of 445 companies. It's still a lot to sip through one
 445 rows, 2 columns
 </pre>
 
-Next, we need to figure out a way to enrich the data about these companies with details about market cap, dividends, PE ratio, and other useful information. As developers, we know the best way to do that is by using an API. I googled for a free one and not many came up. Most don't offer dividend data, so I ended up using [this Yahoo Finance alternative API](https://financeapi.net). It has a free tier offering 100 requests per day, which is a very low number so we need to be very careful when using it, otherwise, we would need to wait until tomorrow to continue with our experiments. Since we don't plan to be running this script frequently, a one-time parsing of the data is more than enough and we can save some money by using the free tier.
+Next, we need to figure out a way to enrich the data about these companies with details about market cap, dividends, PE ratio, and other useful information. As developers, we know the best way to do that is by using an API. I googled for a free one, and not many came up. Most don't offer dividend data, so I ended up using [this Yahoo Finance alternative API](https://financeapi.net). It has a free tier offering 100 requests per day, which is a very low number, so we need to be very careful when using it, or we would need to wait until tomorrow to continue our experiments. Since we don’t plan to be running this script frequently, a one-time parsing of the data is more than enough, and we can save some money by using the free tier.
 
 Looking at the documentation, the `/v6/finance/quote` endpoint is suitable for our needs. It gives us a lot of data for a given company, and we can also query 10 companies at a time, which, considering the 100 requests/day limit, means that by grouping our requests we can get data for all of the 445 companies in one day. Let's create a model that matches the fields we need from the response:
 
@@ -178,12 +179,12 @@ struct StockResponse: Decodable {
 }
 ```
 
-Depending on what your investment strategy is, and where the market is at a given time, your filters might be vastly different from mine. Even mine might change from day to day. That's why it makes sense to download and store the market data for these 445 companies and then be able to tweak our filters at will without worrying about API rate limiting.
+Depending on your investment strategy and where the market is at a given time, your filters might be vastly different from mine. Even mine might change from day to day. That's why it makes sense to download and store the market data for these 445 companies and then be able to tweak our filters at will without worrying about API rate limiting.
 
-Let's design our API client to do just that. Our `saveStocks()` method will need two arguments - the list of stock symbols (remember, up to 10), and our API key.
+Let's design our API client to do just that. Our `saveStocks()` method will need two arguments - the list of stock symbols (remember, up to 10) and our API key.
 
 ```swift
-func saveStocks(symbols: [String], apiKey: String) async throws {
+func saveStocks(symbols: [String], apiKey: String, pathUrl: URL) async throws {
     let parameters = [
         "region": "US",
         "lang": "en",
@@ -202,26 +203,31 @@ func saveStocks(symbols: [String], apiKey: String) async throws {
         throw APIClientError.invalidResponse
     }
 
-    try data.write(to: URL(fileURLWithPath: "/Users/gimly/Developer/DivStocks/DivStocks/yfapi/stocks-\(symbols[0]).json"))
+    let fileUrl = pathUrl.appendingPathComponent("stocks-\(symbols[0]).json")
+    try data.write(to: fileUrl)
 }
 ```
 
-We are using the first symbol in each group as a name for the file - you can improvise here, like using numbers, or hashing the list. Since all the symbols are unique, picking the first one should be good enough. Looking at the folder afterwards we can see the resulting files.
-`<screenshot>`
+We are using the first symbol in each group as a name for the file - you can improvise here, like using numbers or hashing the list. Since all the symbols are unique, picking the first one should be good enough. Looking at the folder afterwards, we can see the resulting files.
+<img src="{{ '/assets/img/file-list.png' | prepend: site.baseurl }}" style="border-width: 1px; border-color: #b20600; border-style: double;" alt="">
 
-Our next step is to add a method to read the files and return them to our script. We already have all the necessary parts for this so the method is quite straightforward.
+Our next step is to add a method to read the files and return them to our script. We already have all the necessary parts for this, so the technique is relatively straightforward.
 
 ```swift
-func stocks(symbols: [String]) async throws -> [Stock] {
-    let input = try String(contentsOfFile: "/Users/gimly/Developer/DivStocks/DivStocks/yfapi/stocks-\(symbols[0]).json", encoding: .utf8)
-    let data = input.data(using: .utf8)!
-    let decoder = JSONDecoder()
-    let decoded = try decoder.decode(StockResponse.self, from: data)
-    return decoded.quoteResponse.result
+func stocks(symbols: [String], pathUrl: URL) async throws -> [Stock] {
+    let fileUrl = pathUrl.appendingPathComponent("stocks-\(symbols[0]).json")
+    do {
+        let data = try Data(contentsOf: fileUrl)
+        let decoder = JSONDecoder()
+        let decoded = try decoder.decode(StockResponse.self, from: data)
+        return decoded.quoteResponse.result
+    } catch {
+        return []
+    }
 }
 ```
 
-Let's get back to our main script and use the methods we created. First, let's update the script to accept some more arguments. We need one for the `mode` (i.e. whether we are saving data to disk, or parsing it), and one for our API key. This is how the first few lines look now.
+Let's return to our main script and use the methods we created. First, let's update the script to accept some more arguments. We need one for the `mode` (i.e. whether we are saving data to disk or parsing it) and one for our API key. This is how the first few lines look now.
 
 ```swift
 struct DivStocks: AsyncParsableCommand {
@@ -234,11 +240,12 @@ struct DivStocks: AsyncParsableCommand {
 
     func run() async throws {
         let fileUrl = URL(fileURLWithPath: inputFile)
+        let pathUrl = fileUrl.deletingLastPathComponent()
         let shouldSave: Bool = (mode == "save")
         let options = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
 ```
 
-Next, we create a new temporary data frame containing only the symbols and use Apple's Algorithms framework to quickly group them in chunks of 10. We need these chunks for both getting the API data and for parsing the already saved files.
+Next, we create a new temporary data frame containing only the symbols and use Apple's Algorithms framework to group them in chunks of 10 quickly. We need these chunks for both getting the API data and parsing the already saved files.
 
 ```swift
 let tickerData = dataFrame.selecting(columnNames: "Symbol")
@@ -257,20 +264,31 @@ if shouldSave {
         return
     }
     for symbolGroup in symbolGroups {
-        try await apiClient.saveStocks(symbols: Array(symbolGroup), apiKey: apiKey)
+        try await apiClient.saveStocks(symbols: Array(symbolGroup), apiKey: apiKey, pathUrl: pathUrl)
     }
     print("Stock data saved!")
 } else {
 ```
 
-Running the script at this point should save all the downloaded data to the folder we specified.
-`$ ./stocks --input-file "/Users/gimly/Developer/DivStocks/DivStocks/all-freetrade-stocks.csv" --mode save --api-key gkdsngdskFitelAsnfsldkmvakgjdDslmv`
+Running the script at this point should save all the downloaded data to the same folder as the input file.
 
-`<screenshot>`
+``` bash
+$ ./stock-tables --input-file "~/stocks/all-freetrade-stocks.csv" \
+    --mode save --api-key ghdssngdskFigselAsngshkmvakgjdDsggv
+```
 
-Now for the fun part. Let's pick our stocks! First things first, we want to create a new table containing the data we gathered from the API. We are gonna include the stock symbol, the market cap, the trailing dividend yield, the trailing PE ratio, the trailing EPS, and the average analyst rating. Feel free to adapt this part to include or exclude what you think you are gonna need for your filters.
+Now for the fun part. Let's pick our stocks! First, we want to create a new table containing the data we gathered from the API. We will include:
 
-We are creating our table by first creating the columns with capacity matching the number of companies we have as an input, then adding our data to the columns, and in the end appending the columns to an empty table. It feels a bit counter-intuitive, especially if you are used to working with other data structures in Swift.
+- The stock symbol.
+- The market cap.
+- The trailing dividend yield.
+- The trailing PE ratio.
+- The trailing EPS.
+- The average analyst rating.
+
+Feel free to adapt this part to include or exclude what you think you need for your filters.
+
+We create our table by creating the columns with capacity matching the number of companies we have as an input, then adding our data to the columns, and in the end, appending the columns to an empty table. It feels a bit counter-intuitive, especially if you are used to working with other data structures in Swift.
 
 ```swift
 var symbolCol = Column<String>(name: "symbol", capacity: rowCount)
@@ -283,7 +301,7 @@ var stocksDataFrame = DataFrame()
 
 let apiClient = APIClient()
 for symbolGroup in symbolGroups {
-    let stocks = try await apiClient.stocks(symbols: Array(symbolGroup))
+    let stocks = try await apiClient.stocks(symbols: Array(symbolGroup), pathUrl: pathUrl)
     for stock in stocks {
         symbolCol.append(stock.symbol)
         marketCapCol.append(stock.marketCap)
@@ -335,9 +353,9 @@ The result is a nice table with all the data we need:
 442 rows, 6 columns
 </pre>
 
-Our next and final step is to apply filters and trim down the list to a handful of stocks we like, which we will then spend some time looking into before buying. This step is the most subjective - the filters I am going to show you are almost certainly not the same ones you are going to use. So rather than explaining and defending my strategy, I will try to generalise it so you can apply the algorithm easily to your situation.
+Our next and final step is to apply filters and trim down the list to a handful of stocks we like, which we will then spend some time looking into before buying. This step is the most subjective - the filters I will show you are almost certainly not the ones best suited for your needs. So rather than explaining and defending my strategy, I will try to generalise it so you can apply the algorithm easily to your situation.
 
-Let's say we want only companies with more than a billion dollars market cap. We also want them to be profitable, so their EPS (earnings per share) need to be a positive number. And finally, let's focus on companies with at least a 1% yearly dividend yield. Let's see the code:
+Let's say we only want companies with more than a billion-dollar market cap. We also want them to be profitable, so their EPS (earnings per share) need to be a positive number. And finally, let's focus on companies with at least a 1% yearly dividend yield. Let's see the code:
 
 ```swift
 let oneData = dataFrame.joined(stocksDataFrame, on: (left: "Symbol", right: "symbol"), kind: .left)
@@ -378,7 +396,7 @@ let oneData = dataFrame.joined(stocksDataFrame, on: (left: "Symbol", right: "sym
 98 rows, 5 columns
 </pre>
 
-We achieved some success but we have two remaining problems. First, we still have 98 companies to sip through. Second, the dividend yield field is hard to read. We can also make the column titles nicer. Let's get the easy tasks out of the way first.
+We achieved some success, but we have two remaining problems. First, we still have 98 companies to sip through. Second, the dividend yield field is hard to read. We can also make the column titles better. Let's get the easy tasks out of the way first.
 
 ```swift
 let formatter = NumberFormatter()
@@ -430,7 +448,7 @@ prettyData.renameColumn("right.averageAnalystRating", to: "Average Analyst Ratin
 
 
 
-There are a lot of different things we can do to further trim down the list of stocks and it all depends on the strategy we are using. Let's try to use the analyst rating we get from the API and only consider stocks with a "Strong Buy" rating (1.5 or lower). For better performance you might want to split the column in two but because this script is not something we are going to run very often we can just try to compare strings.
+We will try to trim down the list of stocks further by using the analyst rating we get from the API and only consider stocks with a "Strong Buy" rating (1.5 or lower). A simple string comparison will suffice for now because this script is not something we will run very often. If you want to optimise further, you can extract the numeric rating and use it for comparison.
 
 ```swift
 .filter(on: "right.averageAnalystRating", String.self, { $0 ?? "2" <= "1.5" })
@@ -454,8 +472,10 @@ And voilà, we have our final list:
 
 #### In Conclusion
 
-We started with a huge spreadsheet and after some light coding, we have a nice shortlist of companies we can further look into. Using TabularData is easy and fun. Oh, and also, I am not subscribing to the PLUS plan - the additional companies I would be able to buy are not that appealing. Not all is lost though, I am gonna update the script to filter the non-PLUS companies next.
+We started with a big spreadsheet, and after some light coding, we have an excellent short list of companies we can further analyse. Using TabularData is easy and fun. Oh, and also, I am not subscribing to the PLUS plan - the additional companies I would be able to buy are not that appealing. Not all is lost, though. I can update the script to filter the non-PLUS companies for a follow-up article.
 
-You can find the source code for the script on GitHub. Feel free to reach me on Twitter if you have any feedback.
+You can find the source code for the script [on GitHub](https://github.com/swiftyaf/StockTables). Feel free to reach me on Twitter if you have any feedback.
 
 And yes, we are hiring! If you want to work with me day-to-day (and who doesn't?), [ping me on Twitter](https://twitter.com/gimly)!
+
+<span>Photo by <a href="https://unsplash.com/@nate_dumlao?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nathan Dumlao</a> on <a href="https://unsplash.com/s/photos/filter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></span>
