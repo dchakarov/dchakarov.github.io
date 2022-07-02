@@ -6,17 +6,17 @@ image:
 description: 
 ---
 
-_**TL;DR** Let's create a Swift script which will take a list of stocks and a finance API key and will give us a shortlist of dividend stocks we should consider investing in. Our script focuses on Freetrade & uses a Yahoo Finance alternative API, but it can be easily adapted to work with any list of stock tickers, and any finance API. Get the code here._
+_**TL;DR** Let’s create a Swift script that will take a list of stocks and a finance API key and give us a shortlist of dividend stocks we should consider investing in. Our script focuses on Freetrade & uses a Yahoo Finance alternative API, but it can be easily adapted to work with any list of stock tickers and any finance API. Get the code here._
 
-Every Friday at Just Eat Takeaway we have a meeting called wwdc-watchers. It's organised and hosted by the iOS team and open to everyone. We spend half an hour discussing a WWDC (or related) video we picked and watched during the week leading to the meeting. We keep it simple - everyone sticks a bunch of sticky notes on a dedicated virtual board and at the meeting we go over them one by one, sharing what we learned and how we feel about the topic.
+Every Friday at Just Eat Takeaway we have a meeting called WWDC-watchers. It’s organised and hosted by the iOS team and open to everyone. We spend half an hour discussing a WWDC (or related) video we picked and watched during the week leading to the meeting. We keep it simple - everyone sticks a bunch of sticky notes on a dedicated virtual board, and at the meeting, we go over them one by one, sharing what we learned and how we feel about the topic.
 
-At a recent event, we discussed a [Tech Talk on a somewhat obscure Apple framework called TabularData](https://developer.apple.com/videos/play/tech-talks/10100/). Watching the video and discussing it with my fellow developers excited me about the framework and I decided to use it for an idea I had at the time.
+At a recent event, we discussed a [Tech Talk on a somewhat obscure Apple framework called TabularData](https://developer.apple.com/videos/play/tech-talks/10100/). Watching the video and discussing it with my fellow developers excited me about the framework, and I decided to use it for an idea I had at the time.
 
-For the past few years I have been using [Freetrade](https://magic.freetrade.io/join/dimitar/09b52fdb) for investing. This is not an endorsement, nor is it financial advice. I primarily focus on the so-called dividend investing with the occasional impulsive buy. The way I choose companies to invest in is usually by searching online or asking friends for recommendations and then doing my due diligence. Before spending too much time on research, I also need to make sure a given company is available on Freetrade.
+For the past few years, I have been using [Freetrade](https://magic.freetrade.io/join/dimitar/09b52fdb) for investing. This is not an endorsement, nor is it financial advice. I primarily focus on the so-called dividend investing with the occasional impulsive buy. I choose companies to invest in by searching online or asking friends for recommendations and then doing my due diligence. Before spending too much time on research, I also need to ensure a given company is available on Freetrade.
 
-The reason I don't start my research on Freetrade, and instead need to go out of my way to find suitable companies is the lack of filters or tools in the app to get to the companies that match my criteria. You are presented with a huge list of thousands of companies with no filtering or sorting. Going to their website gives you [some filters](https://freetrade.io/stock-list#stock-list-table) but far from enough. Moreover, you can only see 20 companies at a time. It looks pretty, but it's not very useful. Thankfully, if you scroll past the list, you will find a link to a google sheet with all the companies available on the platform.
+I don’t start my research on Freetrade and instead need to go out of my way to find suitable companies because of the app’s lack of filters or tools to get to the companies that match my criteria. You are presented with a massive list of thousands of companies without filtering or sorting. Going to their website gives you [some filters](https://freetrade.io/stock-list#stock-list-table), but that is far from enough. Moreover, you can only see 20 companies at a time. It looks pretty, but it's not very useful. Thankfully, if you scroll past the list, you will find a link to a google sheet with all the companies available on the platform.
 
-You can, of course, use your superpowers in filtering google sheets to achieve what you want. But where is the fun in that? I decided to instead download the list in CSV and give [TabularData](https://developer.apple.com/documentation/tabulardata) a spin. To learn more about TabularData I recommend you read [this amazing introduction](https://holyswift.app/crunching-data-with-the-new-apples-tabulardata-framework).
+You can, of course, use your superpowers in filtering google sheets to achieve what you want. But where is the fun in that? Instead, I downloaded the list in CSV and gave [TabularData](https://developer.apple.com/documentation/tabulardata) a spin. To learn more about TabularData I recommend you read [this amazing introduction](https://holyswift.app/crunching-data-with-the-new-apples-tabulardata-framework).
 
 Before we dive into Xcode let's have a look at the data. We have around 6300 companies with 14 properties for each of them. Let's see which of these properties are useful for us:
 
@@ -30,7 +30,7 @@ Before we dive into Xcode let's have a look at the data. We have around 6300 com
 - `MIC` - no idea, e.g. `XLON`
 - `Symbol` - the stock ticker, e.g. `JET`
 - `Fractional_Enabled` - whether you can buy fractional shares of the company, e.g. `FALSE`
-- `PLUS_only` - whether you need a PLUS Freetrade account in order to buy the company, e.g. `FALSE`
+- `PLUS_only` - whether you need a PLUS Freetrade account to buy the company, e.g. `FALSE`
 - `for_Ireland_investors` - no idea, e.g. `FALSE`
 - `for_Netherlands_investors` - no idea, e.g. `FALSE`
 - `KIID_URL` - a link to a "Key Investor Information" document
@@ -155,7 +155,7 @@ We get a much shorter list of 445 companies. It's still a lot to sip through one
 445 rows, 2 columns
 </pre>
 
-Next, we need to figure out a way to enrich the data about these companies with details about market cap, dividends, PE ratio, and other useful information. As developers we know the best way to do that is by using an API. I googled for a free one and not many came up. Most don't offer dividend data, so I ended up using [this Yahoo Finance alternative API](https://financeapi.net). It has a free tier offering 100 requests per day, which is a very low number so we need to be very careful when using it, otherwise, we would need to wait until tomorrow to continue with our experiments. Since we don't plan to be running this script frequently, a one-time parsing of the data is more than enough and we can save some money by using the free tier.
+Next, we need to figure out a way to enrich the data about these companies with details about market cap, dividends, PE ratio, and other useful information. As developers, we know the best way to do that is by using an API. I googled for a free one and not many came up. Most don't offer dividend data, so I ended up using [this Yahoo Finance alternative API](https://financeapi.net). It has a free tier offering 100 requests per day, which is a very low number so we need to be very careful when using it, otherwise, we would need to wait until tomorrow to continue with our experiments. Since we don't plan to be running this script frequently, a one-time parsing of the data is more than enough and we can save some money by using the free tier.
 
 Looking at the documentation, the `/v6/finance/quote` endpoint is suitable for our needs. It gives us a lot of data for a given company, and we can also query 10 companies at a time, which, considering the 100 requests/day limit, means that by grouping our requests we can get data for all of the 445 companies in one day. Let's create a model that matches the fields we need from the response:
 
@@ -335,7 +335,7 @@ The result is a nice table with all the data we need:
 442 rows, 6 columns
 </pre>
 
-Our next and final step is to apply filters and trim down the list to a handful of stocks we really like, which we will then spend some time looking into before buying. This step is the most subjective - the filters I am going to show you are almost certainly not the same ones you are going to use. So rather than explaining and defending my strategy, I will try to generalise it so you can apply the algorithm easily to your situation.
+Our next and final step is to apply filters and trim down the list to a handful of stocks we like, which we will then spend some time looking into before buying. This step is the most subjective - the filters I am going to show you are almost certainly not the same ones you are going to use. So rather than explaining and defending my strategy, I will try to generalise it so you can apply the algorithm easily to your situation.
 
 Let's say we want only companies with more than a billion dollars market cap. We also want them to be profitable, so their EPS (earnings per share) need to be a positive number. And finally, let's focus on companies with at least a 1% yearly dividend yield. Let's see the code:
 
@@ -452,11 +452,10 @@ And voilà, we have our final list:
 5 rows, 5 columns
 </pre>
 
-In Conclusion
-~~~
+#### In Conclusion
 
 We started with a huge spreadsheet and after some light coding, we have a nice shortlist of companies we can further look into. Using TabularData is easy and fun. Oh, and also, I am not subscribing to the PLUS plan - the additional companies I would be able to buy are not that appealing. Not all is lost though, I am gonna update the script to filter the non-PLUS companies next.
 
 You can find the source code for the script on GitHub. Feel free to reach me on Twitter if you have any feedback.
 
-And yes, we are hiring! If you want to work with me day-to-day (and who doesn't?), ping me on Twitter!
+And yes, we are hiring! If you want to work with me day-to-day (and who doesn't?), [ping me on Twitter](https://twitter.com/gimly)!
