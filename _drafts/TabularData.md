@@ -6,45 +6,43 @@ image:
 description: 
 ---
 
-# Let me filter that for you
+_**TL;DR** Let's create a Swift script which will take a list of stocks and a finance API key and will give us a shortlist of dividend stocks we should consider investing in. Our script focuses on Freetrade & uses a Yahoo Finance alternative API, but it can be easily adapted to work with any list of stock tickers, and any finance API. Get the code here._
 
-    TL;DR Let's create a Swift script which will take a list of stocks and a finance API key and will give us a shortlist of dividend stocks we should consider investing in. Our script focuses on Freetrade & uses a Yahoo Finance alternative, but it can be easily adapted to work with any list of stock tickers, and any finance API. Get the code here.
-
-Every Friday at Just Eat Takeaway we have a meeting called wwdc-watchers. It's organised and hosted by the iOS team, but it's open to everyone. We spend half an hour discussing a WWDC (or iOS-centric) video we picked and watched during the week leading to the meeting. We keep it simple - everyone sticks a bunch of sticky notes on a dedicated virtual board and at the meeting we go over them one by one, sharing what we learned and how we feel about the topic.
+Every Friday at Just Eat Takeaway we have a meeting called wwdc-watchers. It's organised and hosted by the iOS team and open to everyone. We spend half an hour discussing a WWDC (or related) video we picked and watched during the week leading to the meeting. We keep it simple - everyone sticks a bunch of sticky notes on a dedicated virtual board and at the meeting we go over them one by one, sharing what we learned and how we feel about the topic.
 
 At a recent event, we discussed a [Tech Talk on a somewhat obscure Apple framework called TabularData](https://developer.apple.com/videos/play/tech-talks/10100/). Watching the video and discussing it with my fellow developers excited me about the framework and I decided to use it for an idea I had at the time.
 
 For the past few years I have been using [Freetrade](https://magic.freetrade.io/join/dimitar/09b52fdb) for investing. This is not an endorsement, nor is it financial advice. I primarily focus on the so-called dividend investing with the occasional impulsive buy. The way I choose companies to invest in is usually by searching online or asking friends for recommendations and then doing my due diligence. Before spending too much time on research, I also need to make sure a given company is available on Freetrade.
 
-The reason I don't start my research on Freetrade, and instead need to go out of my way to find suitable companies is the lack of filters or tools in the app to get to the companies that match my criteria. You are presented with a huge list of thousands of companies with no filtering or sorting. Going to their website gives you [some filters](https://freetrade.io/stock-list#stock-list-table) but far from enough. Moreover, you can only see 20 companies at a time. It looks pretty, but it's not very useful. Thankfully, if you scroll past the list, you will find a link to a google sheet with all the shares available on the platform.  
+The reason I don't start my research on Freetrade, and instead need to go out of my way to find suitable companies is the lack of filters or tools in the app to get to the companies that match my criteria. You are presented with a huge list of thousands of companies with no filtering or sorting. Going to their website gives you [some filters](https://freetrade.io/stock-list#stock-list-table) but far from enough. Moreover, you can only see 20 companies at a time. It looks pretty, but it's not very useful. Thankfully, if you scroll past the list, you will find a link to a google sheet with all the companies available on the platform.
 
-You can, of course, use your superpowers in filtering google sheets to achieve what you want. But where is the fun in that? I decided to instead download the list in CSV and give TabularData a spin. To learn more about TabularData I recommend you read this https://holyswift.app/crunching-data-with-the-new-apples-tabulardata-framework.
+You can, of course, use your superpowers in filtering google sheets to achieve what you want. But where is the fun in that? I decided to instead download the list in CSV and give [TabularData](https://developer.apple.com/documentation/tabulardata) a spin. To learn more about TabularData I recommend you read [this amazing introduction](https://holyswift.app/crunching-data-with-the-new-apples-tabulardata-framework).
 
 Before we dive into Xcode let's have a look at the data. We have around 6300 companies with 14 properties for each of them. Let's see which of these properties are useful for us:
 
-Title - the company display name, the way it will appear in the app, e.g. Just Eat Takeaway.com
-Long_Title - the full company name, e.g. Just Eat Takeaway.com NV
-Subtitle - what the company does, e.g. Online food ordering
-Currency - the currency, e.g. gbp
-ISA_eligible - if you can buy the company for your ISA account, e.g. TRUE
-SIPP_eligible - if you can buy the company for your SIPP account, e.g. TRUE
-ISIN - no idea, e.g. NL0012015705
-MIC - no idea, e.g. XLON
-Symbol - the stock ticker, e.g. JET
-Fractional_Enabled - whether you can buy fractional shares of the company, e.g. FALSE
-PLUS_only - whether you need a PLUS Freetrade account in order to buy the company, e.g. FALSE
-for_Ireland_investors - no idea, e.g. FALSE
-for_Netherlands_investors - no idea, e.g. FALSE
-KIID_URL - a link to a "Key Investor Information" document
+- `Title` - the company display name, the way it will appear in the app, e.g. `Just Eat Takeaway.com`
+- `Long_Title` - the full company name, e.g. `Just Eat Takeaway.com NV`
+- `Subtitle` - what the company does, e.g. `Online food ordering`
+- `Currency` - the currency, e.g. `gbp`
+- `ISA_eligible` - if you can buy the company for your ISA account, e.g. `TRUE`
+- `SIPP_eligible` - if you can buy the company for your SIPP account, e.g. TRUE
+- `ISIN` - no idea, e.g. `NL0012015705`
+- `MIC` - no idea, e.g. `XLON`
+- `Symbol` - the stock ticker, e.g. `JET`
+- `Fractional_Enabled` - whether you can buy fractional shares of the company, e.g. `FALSE`
+- `PLUS_only` - whether you need a PLUS Freetrade account in order to buy the company, e.g. `FALSE`
+- `for_Ireland_investors` - no idea, e.g. `FALSE`
+- `for_Netherlands_investors` - no idea, e.g. `FALSE`
+- `KIID_URL` - a link to a "Key Investor Information" document
 
 As you can see, there is no information about any market performance metrics - dividend payments, dividend growth, market cap, current price, etc. The only properties we can use for our purposes are Title, Currency (if we want to focus on a given market, e.g. the US), ISA_eligible (as my account is an ISA), Symbol, and PLUS_only, as I am wondering whether to subscribe to their PLUS plan.
 
 Start with creating a command line Xcode project. Add the ArgumentParser package by going to File -> Add Packages and selecting it from the Apple Swift Packages collection. Next, since we want to have the CSV file as an input to our script, let's add it to the scheme arguments like so:
-<screenshot>
+`<screenshot>`
 
 Next, let's start by parsing our file and printing out what we read:
 
-```
+```swift
 import TabularData
 import Foundation
 import ArgumentParser
@@ -56,21 +54,28 @@ struct DivStocks: AsyncParsableCommand {
 
     func run() async throws {
         let fileUrl = URL(fileURLWithPath: inputFile)
-        let options = CSVReadingOptions(hasHeaderRow: true, delimiter: ",")
-        let fullDataFrame = try! DataFrame(contentsOfCSVFile: fileUrl,
-                                           columns: ["Symbol", "Title", "Currency", "ISA_eligible", "PLUS_only"],
-                                           types: ["Symbol": .string,
-                                                   "Title": .string,
-                                                   "ISA_eligible": .boolean,
-                                                   "Currency": .string,
-                                                   "PLUS_only": .boolean],
-                                           options: options)
+        let options = CSVReadingOptions(hasHeaderRow: true,
+                                        delimiter: ",")
+        let fullDataFrame = try! DataFrame(
+            contentsOfCSVFile: fileUrl,
+            columns: ["Symbol",
+                "Title",
+                "Currency",
+                "ISA_eligible",
+                "PLUS_only"],
+            types: [
+                "Symbol": .string,
+                "Title": .string,
+                "ISA_eligible": .boolean,
+                "Currency": .string,
+                "PLUS_only": .boolean],
+            options: options)
         print(fullDataFrame)
     }
 }
 ```
 
-Please note, that I am not gonna go into much detail on the TabularData framework itself, as this is very well covered in the video above. In addition, you can find a great deep dive here: https://holyswift.app/crunching-data-with-the-new-apples-tabulardata-framework.
+Please note, that I am not gonna go into much detail on the TabularData framework itself, as this is very well covered in both the video and the article I linked above.
 
 Running the script in Xcode should give us something like this in the console:
 
@@ -105,9 +110,9 @@ Running the script in Xcode should give us something like this in the console:
 6,359 rows, 5 columns
 </pre>
 
-Let's filter out non-US companies, and the ones that require a paid subscription, or are not available to buy if you have an ISA.
+Let's filter out non-US companies and only include the ones that require a paid subscription and are ISA-eligible. This will help me decide if a PLUS plan subscription is worth my money.
 
-```
+```swift
         let dataFrame = fullDataFrame
             .filter(on: "Currency", String.self, { $0 == "usd" })
             .filter(on: "ISA_eligible", Bool.self, { $0! })
@@ -117,7 +122,7 @@ Let's filter out non-US companies, and the ones that require a paid subscription
         print(dataFrame)
 ```
 
-We get a much shorter list of 445 companies, still a lot to look into one by one, but a big improvement over the 6359 companies above.
+We get a much shorter list of 445 companies. It's still a lot to sip through one by one, but a big improvement over the 6359 companies above.
 
 <pre>
 ┏━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -150,11 +155,11 @@ We get a much shorter list of 445 companies, still a lot to look into one by one
 445 rows, 2 columns
 </pre>
 
-Next, we need to figure out a way to enrich the data about these companies with details about market cap, dividends, PE ratio, and other useful information. To do that we are going to need a financial API. I googled for a free one and not many came up. Most don't offer dividend data, so I ended up using a Yahoo Finance alternative https://financeapi.net. It has a free tier offering 100 requests per day, which is a very low number so we need to be very careful when using it, otherwise, we would need to wait until tomorrow to continue with our experiments. Since we don't plan to be running this script frequently, a one-time parsing of the data is more than enough and we can save some money by using the free tier.
+Next, we need to figure out a way to enrich the data about these companies with details about market cap, dividends, PE ratio, and other useful information. As developers we know the best way to do that is by using an API. I googled for a free one and not many came up. Most don't offer dividend data, so I ended up using [this Yahoo Finance alternative API](https://financeapi.net). It has a free tier offering 100 requests per day, which is a very low number so we need to be very careful when using it, otherwise, we would need to wait until tomorrow to continue with our experiments. Since we don't plan to be running this script frequently, a one-time parsing of the data is more than enough and we can save some money by using the free tier.
 
-Looking at the documentation, the /v6/finance/quote is suitable for our needs. It gives us a lot of data for a given company, and we can also query 10 companies at a time, which, considering the 100 requests/day limit, means that by grouping our requests we can get data for all of the 445 companies in one day. Let's create a model that matches the fields we need from the response:
+Looking at the documentation, the `/v6/finance/quote` endpoint is suitable for our needs. It gives us a lot of data for a given company, and we can also query 10 companies at a time, which, considering the 100 requests/day limit, means that by grouping our requests we can get data for all of the 445 companies in one day. Let's create a model that matches the fields we need from the response:
 
-```
+```swift
 struct Stock: Decodable {
     let symbol: String
     let trailingAnnualDividendYield: Double?
@@ -175,9 +180,9 @@ struct StockResponse: Decodable {
 
 Depending on what your investment strategy is, and where the market is at a given time, your filters might be vastly different from mine. Even mine might change from day to day. That's why it makes sense to download and store the market data for these 445 companies and then be able to tweak our filters at will without worrying about API rate limiting.
 
-Let's design our API client to do just that. Our saveStocks() method will need two arguments - the list of stock symbols (remember, up to 10), and our API key.
+Let's design our API client to do just that. Our `saveStocks()` method will need two arguments - the list of stock symbols (remember, up to 10), and our API key.
 
-```
+```swift
 func saveStocks(symbols: [String], apiKey: String) async throws {
     let parameters = [
         "region": "US",
@@ -185,9 +190,9 @@ func saveStocks(symbols: [String], apiKey: String) async throws {
         "symbols": symbols.joined(separator: ",")
     ]
     var components = URLComponents(string: "https://yfapi.net/v6/finance/quote")!
-    components.queryItems = parameters.map({ (key, value) -> URLQueryItem in
+    components.queryItems = parameters.map { (key, value) -> URLQueryItem in
         URLQueryItem(name: key, value: String(value))
-    })
+    }
     var request = URLRequest(url: components.url!)
     request.httpMethod = "GET"
     request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
@@ -202,10 +207,11 @@ func saveStocks(symbols: [String], apiKey: String) async throws {
 ```
 
 We are using the first symbol in each group as a name for the file - you can improvise here, like using numbers, or hashing the list. Since all the symbols are unique, picking the first one should be good enough. Looking at the folder afterwards we can see the resulting files.
+`<screenshot>`
 
 Our next step is to add a method to read the files and return them to our script. We already have all the necessary parts for this so the method is quite straightforward.
 
-```
+```swift
 func stocks(symbols: [String]) async throws -> [Stock] {
     let input = try String(contentsOfFile: "/Users/gimly/Developer/DivStocks/DivStocks/yfapi/stocks-\(symbols[0]).json", encoding: .utf8)
     let data = input.data(using: .utf8)!
@@ -217,7 +223,7 @@ func stocks(symbols: [String]) async throws -> [Stock] {
 
 Let's get back to our main script and use the methods we created. First, let's update the script to accept some more arguments. We need one for the `mode` (i.e. whether we are saving data to disk, or parsing it), and one for our API key. This is how the first few lines look now.
 
-```
+```swift
 struct DivStocks: AsyncParsableCommand {
     @Option(name: .long, help: "The input filename with full path")
     private var inputFile: String
@@ -234,7 +240,7 @@ struct DivStocks: AsyncParsableCommand {
 
 Next, we create a new temporary data frame containing only the symbols and use Apple's Algorithms framework to quickly group them in chunks of 10. We need these chunks for both getting the API data and for parsing the already saved files.
 
-```
+```swift
 let tickerData = dataFrame.selecting(columnNames: "Symbol")
 let symbolGroups = tickerData.rows.compactMap { row in
     (row["Symbol"] as! String)
@@ -243,7 +249,7 @@ let symbolGroups = tickerData.rows.compactMap { row in
 
 The `save` mode is straightforward - we use our API client and pass the chunks of symbols.
 
-```
+```swift
 if shouldSave {
     let apiClient = APIClient()
     guard let apiKey = apiKey else {
@@ -260,13 +266,13 @@ if shouldSave {
 Running the script at this point should save all the downloaded data to the folder we specified.
 `$ ./stocks --input-file "/Users/gimly/Developer/DivStocks/DivStocks/all-freetrade-stocks.csv" --mode save --api-key gkdsngdskFitelAsnfsldkmvakgjdDslmv`
 
-<screenshot>
+`<screenshot>`
 
 Now for the fun part. Let's pick our stocks! First things first, we want to create a new table containing the data we gathered from the API. We are gonna include the stock symbol, the market cap, the trailing dividend yield, the trailing PE ratio, the trailing EPS, and the average analyst rating. Feel free to adapt this part to include or exclude what you think you are gonna need for your filters.
 
 We are creating our table by first creating the columns with capacity matching the number of companies we have as an input, then adding our data to the columns, and in the end appending the columns to an empty table. It feels a bit counter-intuitive, especially if you are used to working with other data structures in Swift.
 
-```
+```swift
 var symbolCol = Column<String>(name: "symbol", capacity: rowCount)
 var marketCapCol = Column<Int>(name: "marketCap", capacity: rowCount)
 var divCol = Column<Double>(name: "trailingAnnualDividendYield", capacity: rowCount)
@@ -301,7 +307,7 @@ The result is a nice table with all the data we need:
 <pre>
 ┏━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃    ┃ symbol   ┃ marketCap     ┃ trailingAnnualDividendYield ┃ trailingPE ┃ averageAnalystRating ┃ epsTrailingTwelveMonths ┃
-┃    ┃ <String> ┃ <Int>         ┃ <Double>                    ┃ <Double>   ┃ <String>             ┃ <Double>                ┃
+┃    ┃ &lt;String> ┃ &lt;Int>         ┃ &lt;Double>                    ┃ &lt;Double>   ┃ &lt;String>             ┃ &lt;Double>                ┃
 ┡━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━┩
 │ 0  │ ANDE     │ 1,294,674,176 │                    0.018702 │  12.473925 │ 2.0 - Buy            │                   3.068 │
 │ 1  │ TILE     │   788,537,728 │                    0.002996 │  14.151548 │ 2.3 - Buy            │                   0.937 │
@@ -329,11 +335,11 @@ The result is a nice table with all the data we need:
 442 rows, 6 columns
 </pre>
 
-Our next and final step is to apply filters and trim down the list to a handful of stocks we really like, which we will then spend some time looking into before buying. This step is the most subjective - the filter I am going to show you are almost certainly not the same one you are going to use. So rather than explaining and defending my strategy, I will try to generalise it so you can apply the algorithm easily to your situation.
+Our next and final step is to apply filters and trim down the list to a handful of stocks we really like, which we will then spend some time looking into before buying. This step is the most subjective - the filters I am going to show you are almost certainly not the same ones you are going to use. So rather than explaining and defending my strategy, I will try to generalise it so you can apply the algorithm easily to your situation.
 
 Let's say we want only companies with more than a billion dollars market cap. We also want them to be profitable, so their EPS (earnings per share) need to be a positive number. And finally, let's focus on companies with at least a 1% yearly dividend yield. Let's see the code:
 
-```
+```swift
 let oneData = dataFrame.joined(stocksDataFrame, on: (left: "Symbol", right: "symbol"), kind: .left)
     .filter(on: "marketCap", Int.self, { $0 ?? 0 > 1000000000 })
     .filter(on: "epsTrailingTwelveMonths", Double.self, { $0 ?? 0 > 0 })
@@ -344,7 +350,7 @@ let oneData = dataFrame.joined(stocksDataFrame, on: (left: "Symbol", right: "sym
 <pre>
 ┏━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃     ┃ Symbol   ┃ left.Title              ┃ right.marketCap ┃ right.trailingAnnualDividendYield ┃ right.averageAnalystRating ┃
-┃     ┃ <String> ┃ <String>                ┃ <Int>           ┃ <Double>                          ┃ <String>                   ┃
+┃     ┃ &lt;String> ┃ &lt;String>                ┃ &lt;Int>           ┃ &lt;Double>                          ┃ &lt;String>                   ┃
 ┡━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
 │ 0   │ ANDE     │ Andersons               │   1,294,674,176 │                          0.018702 │ 2.0 - Buy                  │
 │ 3   │ DCOM     │ Dime Community          │   1,203,996,672 │                          0.031424 │ 1.6 - Buy                  │
@@ -374,7 +380,7 @@ let oneData = dataFrame.joined(stocksDataFrame, on: (left: "Symbol", right: "sym
 
 We achieved some success but we have two remaining problems. First, we still have 98 companies to sip through. Second, the dividend yield field is hard to read. We can also make the column titles nicer. Let's get the easy tasks out of the way first.
 
-```
+```swift
 let formatter = NumberFormatter()
 formatter.numberStyle = .percent
 formatter.maximumFractionDigits = 2
@@ -394,7 +400,7 @@ prettyData.renameColumn("right.averageAnalystRating", to: "Average Analyst Ratin
 <pre>
 ┏━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃    ┃ Symbol   ┃ Company                 ┃ Market Cap    ┃ Dividend Yield ┃ Average Analyst Rating ┃
-┃    ┃ <String> ┃ <String>                ┃ <Int>         ┃ <String>       ┃ <String>               ┃
+┃    ┃ &lt;String> ┃ &lt;String>                ┃ &lt;Int>         ┃ &lt;String>       ┃ &lt;String>               ┃
 ┡━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
 │ 0  │ ANDE     │ Andersons               │ 1,294,674,176 │ 1.87%          │ 2.0 - Buy              │
 │ 1  │ DCOM     │ Dime Community          │ 1,203,996,672 │ 3.14%          │ 1.6 - Buy              │
@@ -426,7 +432,7 @@ prettyData.renameColumn("right.averageAnalystRating", to: "Average Analyst Ratin
 
 There are a lot of different things we can do to further trim down the list of stocks and it all depends on the strategy we are using. Let's try to use the analyst rating we get from the API and only consider stocks with a "Strong Buy" rating (1.5 or lower). For better performance you might want to split the column in two but because this script is not something we are going to run very often we can just try to compare strings.
 
-```
+```swift
 .filter(on: "right.averageAnalystRating", String.self, { $0 ?? "2" <= "1.5" })
 ```
 
@@ -435,7 +441,7 @@ And voilà, we have our final list:
 <pre>
 ┏━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃   ┃ Symbol   ┃ Company                      ┃ Market Cap    ┃ Dividend Yield ┃ Average Analyst Rating ┃
-┃   ┃ <String> ┃ <String>                     ┃ <Int>         ┃ <String>       ┃ <String>               ┃
+┃   ┃ &lt;String> ┃ &lt;String>                     ┃ &lt;Int>         ┃ &lt;String>       ┃ &lt;String>               ┃
 ┡━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩
 │ 0 │ CSGS     │ CSG Systems Intl             │ 1,893,075,840 │ 1.72%          │ 1.0 - Strong Buy       │
 │ 1 │ GFF      │ Griffon                      │ 1,386,450,304 │ 1.43%          │ 1.4 - Strong Buy       │
