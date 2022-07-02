@@ -7,9 +7,7 @@ description: How to use the Jekyll drafting feature so we don't publish our arti
   prematurely.
 ---
 
-# Drafting away
-
-As [I promised last week](https://dchakarov.com/blog/ruby-on-my-mac/), let's see how we can have drafts in our GitHub pages blog instead of posting live and fixing on the fly.
+<span class="dropcap">A</span>s [I promised last week](https://dchakarov.com/blog/ruby-on-my-mac/), let's see how we can have drafts in our GitHub pages blog instead of posting live and fixing on the fly.
 
 Turns out, once we have Ruby installed, it's a piece of cake.
 
