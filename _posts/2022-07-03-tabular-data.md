@@ -1,6 +1,6 @@
 ---
 title: Let me filter that for you
-date: 2022-07-03 00:00:00 Z
+date: 2022-07-03 00:00:01 Z
 layout: post
 image: filtering.jpg
 description: A love story between Swift and the Stock market
