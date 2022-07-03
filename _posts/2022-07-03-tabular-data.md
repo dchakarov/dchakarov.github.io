@@ -10,7 +10,7 @@ _**TL;DR** Let’s create a Swift script that will take a list of stocks and a f
 
 Every Friday at Just Eat Takeaway we have a meeting called WWDC-watchers. It’s organised and hosted by the iOS team and open to everyone. We spend half an hour discussing a WWDC (or related) video we picked and watched during the week leading to the meeting. We keep it simple - everyone sticks a bunch of sticky notes on a dedicated virtual board, and at the meeting, we go over them one by one, sharing what we learned and how we feel about the topic.
 
-At a recent event, we discussed a [Tech Talk on a somewhat obscure Apple framework called TabularData](https://developer.apple.com/videos/play/tech-talks/10100/). Watching the video and discussing it with my fellow developers excited me about the framework, and I decided to use it for an idea I had at the time.
+At a recent event, we discussed a [Tech Talk](https://developer.apple.com/videos/play/tech-talks/10100/) on a somewhat obscure Apple framework called TabularData. Watching the video and discussing it with my fellow developers excited me about the framework, and I decided to use it for an idea I had at the time.
 
 For the past few years, I have been using [Freetrade](https://magic.freetrade.io/join/dimitar/09b52fdb) for investing. This is not an endorsement, nor is it financial advice. I primarily focus on the so-called dividend investing with the occasional impulsive buy. I choose companies to invest in by searching online or asking friends for recommendations and then doing my due diligence. Before spending too much time on research, I also need to ensure a given company is available on Freetrade.
 
