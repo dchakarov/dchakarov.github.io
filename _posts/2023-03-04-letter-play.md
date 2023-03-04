@@ -285,6 +285,6 @@ struct SingleWord_Previews: PreviewProvider {
 
 <img src="{{ '/assets/img/dancing-letters.mov' | prepend: site.baseurl }}" style="width: 300px; border-width: 1px; border-color: #b20600; border-style: double;" alt="">
 
-In summary, we created a cool dancing effect that can delight our users. We didn't even have to build our app, we saw all the action in the live previews. Where to go from here? You can try adding more animations to your views. Another easily animatable property is the offset. I didn't include it here as it would have been a bit too much animating all at once. Another thing you can do is extract the rest of the hardcoded values, such as the frame size, the spacing, and the border width, and play with them. Let me know what you manage to achieve.
+In summary, we created a cool dancing effect that can delight our users. We didn't even have to build our app, we saw all the action in the live previews. Where to go from here? You can try adding more animations to your views. Another easily animatable property is the offset. I didn't include it here as it would have been a bit too much animating all at once. Another thing you can do is extract the rest of the hardcoded values, such as the frame size, the spacing, and the border width, and play with them. [Let me know](https://dchakarov.com/contact/) what you manage to achieve.
 
-You can download the code for this post from https://github.com/dchakarov/letter-play.
+You can download the code for this post from [https://github.com/dchakarov/letter-play](https://github.com/dchakarov/letter-play).
