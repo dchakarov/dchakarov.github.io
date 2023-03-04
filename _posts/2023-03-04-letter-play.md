@@ -3,7 +3,8 @@ title: How to create a playful letter animation
 date: 2023-03-04 00:00:01 Z
 layout: post
 image: letter-play.png
-description: SwiftUI is amazing for creating delightful animations and bringing your views to life. In this post we are going to create some dancing letters together.
+description: SwiftUI is amazing for creating delightful animations and bringing your
+  views to life. In this post we are going to create some dancing letters together.
 ---
 
 <span class="dropcap">I</span>have been working on a word game recently and I wanted to have nice playful animations to make the UI more fun. I decided to improvise and I believe the result is good. In this post I will explain how you can create this effect and engage your users.
