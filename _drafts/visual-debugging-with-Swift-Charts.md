@@ -3,7 +3,8 @@ title: Visual debugging with Swift Charts
 date: 2023-10-20 00:00:01 Z
 layout: post
 image: swift-charts-header.png
-description: When you are working with a lot of data, it is hard to see what is going on. Swift Charts can help you visualise your data and spot issues.
+description: When you are working with a lot of data, it is hard to see what is going
+  on. Swift Charts can help you visualise your data and spot issues.
 ---
 
 <span class="dropcap">W</span>hen I decided to implement the algorithm Soroush Khanlou so brilliantly described in his [Elevated Swift talk](https://www.youtube.com/watch?v=-v1huP4RBgI) I didn’t expect that the hardest part would be not the algorithm for the elevator (or lift, as we call it [here](https://en.wikipedia.org/wiki/United_Kingdom)), but rather the one for generating the traffic.
