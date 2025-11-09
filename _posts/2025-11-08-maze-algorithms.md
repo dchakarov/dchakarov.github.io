@@ -218,7 +218,7 @@ The framework started with just three algorithms and basic functionality. But be
 
 ## What's Next
 
-This framework became the foundation for MZ: Maze Adventures, an iOS game that's currently in beta testing. In future articles, I'll dive into:
+This framework became the foundation for [MZ: Maze Adventures](https://testflight.apple.com/join/Rs497D4E), an iOS game that's currently in beta testing. In future articles, I'll dive into:
 
 - Building the game layer on top of the framework
 - SwiftUI for game development (pros and cons)
