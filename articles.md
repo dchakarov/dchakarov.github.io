@@ -1,5 +1,5 @@
 ---
-title: Dimitar Chakarov
+title: Dimi Chakarov
 layout: default
 ---
 

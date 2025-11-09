@@ -1,29 +1,13 @@
 <div class="footer">
     <div class="container">
-        <p class="copy">&copy; {{ site.time | date: '%Y' }} Dimitar Chakarov. Powered by <a href="http://jekyllrb.com">Jekyll</a></p>
+        <p class="copy">&copy; {{ site.time | date: '%Y' }} Dimi Chakarov. Powered by <a href="http://jekyllrb.com">Jekyll</a></p>
         <div class="footer-links">
             <ul class="noList">
-                {% if site.social.twitter %}
-                <li><a href="https://twitter.com/{{ site.social.twitter }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512">
-                        <rect width="512" height="512" rx="15%" fill="#b20600"/>
-                        <path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/>
-                    </svg>
-                </a></li>
-                {% endif %}
                 {% if site.social.github %}
                 <li><a href="https://github.com/{{ site.social.github }}">
                     <svg xmlns="http://www.w3.org/2000/svg" aria-label="Github" role="img" viewBox="0 0 512 512">
                         <rect width="512" height="512" rx="15%" fill="#b20600"/>
                         <path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/>
-                    </svg>
-                </a></li>
-                {% endif %}
-                {% if site.social.stackoverflow %}
-                <li><a href="https://stackoverflow.com/users/{{ site.social.stackoverflow }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" aria-label="Stack Overflow" role="img" viewBox="0 0 512 512">
-                        <rect width="512" height="512" rx="15%" fill="#b20600"/>
-                        <g stroke="#fff" stroke-width="30"><path fill="none" d="M125 297v105h241V297"/><path d="M170 341h150m-144-68l148 31M199 204l136 64m-95-129l115 97M293 89l90 120"/></g>
                     </svg>
                 </a></li>
                 {% endif %}
@@ -37,18 +21,19 @@
                     </svg>
                 </a></li>
                 {% endif %}
-                {% if site.social.paypal %}
-                <li><a href="https://https://paypal.me/{{ site.social.paypal }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" aria-label="PayPal" role="img" viewBox="0 0 512 512">
+                {% if site.social.stackoverflow %}
+                <li><a href="https://stackoverflow.com/users/{{ site.social.stackoverflow }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-label="Stack Overflow" role="img" viewBox="0 0 512 512">
                         <rect width="512" height="512" rx="15%" fill="#b20600"/>
-                        <path style="fill:#fff;" d="M388.739,204.638c-12.39,57.986-58.651,92.081-113.955,92.081H216.95l-19.806,92.951h-68.001
-                        L125.779,405h80.938l19.823-92.934h57.816c55.3,0,101.579-34.112,113.969-92.098c6.532-30.555-0.271-53.253-13.379-68.906
-                        C391.232,165.18,393.389,182.899,388.739,204.638z"/>
-                        <path style="fill:#fff;" d="M194.922,277.561h57.816c55.322,0,101.565-34.112,113.973-92.098
-                        C380.724,119.82,333.64,90,293.206,90H155.276L94.161,370.512h80.937L194.922,277.561z M290.712,185.48
-                        c-4.821,20.816-24.609,37.428-44.761,38.216l9.485-42.079h35.923C291.154,182.899,291.071,184.15,290.712,185.48z M223.823,147.116
-                        h39.629c13.606,0,23.892,8.098,27.278,19.994c-1.728-0.306-3.334-0.818-5.233-0.818h-39.646l-12.989,57.557h-26.385
-                        L223.823,147.116z"/>
+                        <g stroke="#fff" stroke-width="30"><path fill="none" d="M125 297v105h241V297"/><path d="M170 341h150m-144-68l148 31M199 204l136 64m-95-129l115 97M293 89l90 120"/></g>
+                    </svg>
+                </a></li>
+                {% endif %}
+                {% if site.social.twitter %}
+                <li><a href="https://twitter.com/{{ site.social.twitter }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512">
+                        <rect width="512" height="512" rx="15%" fill="#b20600"/>
+                        <path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/>
                     </svg>
                 </a></li>
                 {% endif %}
