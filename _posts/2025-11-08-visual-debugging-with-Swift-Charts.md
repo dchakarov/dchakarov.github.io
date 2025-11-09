@@ -1,6 +1,6 @@
 ---
 title: Visual debugging with Swift Charts
-date: 2023-10-20 00:00:01 Z
+date: 2025-11-08 00:00:01 Z
 layout: post
 image: swift-charts-header.png
 description: When you are working with a lot of data, it is hard to see what is going
@@ -15,16 +15,20 @@ When we take all this into consideration, our next step is to decide how often w
 - We have a timer that "ticks" at a set interval.
 - Every “tick” equals 10 seconds in-game time.
 - The initial “tick” interval is 0.5 seconds, with controls for changing it down to 0.01 (less is faster).
+I reached these timings with trial and error to what felt like a good pace - not too slow but also not too fast.
 
 Some sloppy SwiftUI designing later, and we have our first running version. We can see the three lifts going up and down. There are people arriving at the ground floor. The lifts seem to be working well.
 
 <img src="{{ '/assets/img/lifts-moving.gif' | prepend: site.baseurl }}" style="width: 300px; border-width: 1px; border-color: #b20600; border-style: double;" alt="">
 
-I showed it to a friend at the office and we decided to speed it up and see what happens. The first thing we noticed was that whenever new people called a lift, all three lifts would head their way. The algorithm was not truly multi-lift.
+I showed it to a friend at the office and we decided to speed it up and see what happens. This would also allow me to show him a feature I've been building - a screen of charts for the enterpreneur who will manage the company maintaining the lifts. The more data we have, the more interesting and useful the charts will be.
 
-The second thing we spotted we only saw because we decided to keep the game running for a while whilst we were talking. The problem was that there were quite a few people arriving on Sunday. The people generation algorithm should have prevented this from happening. The problem became apparent when we opened the stats screen. The data for every day was the same.
+We let it run for a couple of hours and then opened the screen with the charts.
 
 <img src="{{ '/assets/img/swift-charts-header.png' | prepend: site.baseurl }}" style="border-width: 1px; border-color: #b20600; border-style: double;" alt="">
+
+Even though the lifts seemed to be working fine, we could easily spot a problem upon seeing the charts. The shape of the chart was the same regardless of the day of the week. The people generation algorithm should have prevented this from happening. 
+
 
 Good thing that I decided to include charts in the game or otherwise I would have missed this. And it didn't take much. All I needed to do is save the journey data and then display it. Moreover, Swift Charts allows you to show live charts which brings dynamisms to the game.
 
@@ -75,3 +79,8 @@ After fixing the issue with the daily crowd generation, I realised I needed to w
 
 <img src="{{ '/assets/img/lift-stats-fixed.png' | prepend: site.baseurl }}" style="border-width: 1px; border-color: #b20600; border-style: double;" alt="">
 
+The difference was immediately visible. The weekday patterns now showed the expected morning rush, lunch dip, and evening departure patterns, while weekends remained appropriately quiet. Without the visual representation, I might have spent hours stepping through code or worse, shipped a simulation that looked fine on the surface but behaved incorrectly underneath.
+
+This experience reinforced an important lesson: when building complex systems with time-based behaviour, visual feedback isn't just nice to have; it's essential. Swift Charts made it trivially easy to add this debugging capability, and the investment of a few dozen lines of code saved hours of blind debugging. The charts became not just a feature for the game's entrepreneur character, but a development tool that continues to help me validate new features and catch regressions.
+
+If you're working with any kind of time-series data or algorithmic behaviour, consider adding charts early in your development process. Future you will be grateful.
