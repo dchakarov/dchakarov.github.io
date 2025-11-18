@@ -2,7 +2,7 @@
 title: Fitting User Content Without Clipping
 date: 2025-11-18 19:25:01 Z
 layout: post
-image: widget-sizing/clipping.jpg
+image: clipping.jpg
 description: Adapting user-generated content to fit and look good on an iOS widget is not easy. Let's see how we can make it happen.
 ---
 
