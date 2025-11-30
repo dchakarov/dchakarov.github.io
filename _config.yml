@@ -26,6 +26,10 @@ navigation:
   url: "/about"
 - title: Contact
   url: "/contact"
+- title: MZ Privacy Policy
+  url: "/privacy-policy"
+- title: MZ Support
+  url: "/mz-support"
 social:
   github: dchakarov
   twitter: gimly
