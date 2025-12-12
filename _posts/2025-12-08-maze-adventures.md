@@ -33,9 +33,9 @@ Also, the "Draw Mode"? It turns out that drawing a mask with your fat finger on 
 
 ## Finding the Fun
 
-I was three months in. The codebase was sprawling with features nobody cared about (algorithm selectors, learning tabs, map editors). I had to make a choice: release a tech demo that no one would play, or kill my darlings.
+I was three months in. The codebase was sprawling with features nobody cared about (algorithm selectors, learning tabs, map editors). I had a choice to make: release a tech demo that no one would play, or strip back the nerdy features and make the game fun.
 
-I killed them all.
+I chose the latter.
 
 I stripped out the algorithm selector. I hid the educational content. I removed the Draw screen.
 
