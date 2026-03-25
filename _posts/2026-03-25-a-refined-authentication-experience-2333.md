@@ -1,6 +1,6 @@
 ---
 title: "Dan is once again taking us behind the scenes of the work the Account team is de"
-date: 2026-03-25 16:53:31 +0000
+date: 2026-03-25 23:33:36 +0000
 layout: note
 categories: [notes]
 description: "Dan is once again taking us behind the scenes of the work the Account team is delivering at Just Eat."
