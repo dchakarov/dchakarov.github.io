@@ -509,25 +509,35 @@ LINK PREVIEW CARD
 	border: 1px solid darken(white, 15%);
 	border-radius: 8px;
 	overflow: hidden;
-	text-decoration: none;
-	color: $black;
-	transition: border-color 0.2s ease-in-out;
 	margin: 1.5rem 0;
+
+	a {
+		display: block;
+		text-decoration: none;
+		color: $black;
+		transition: border-color 0.2s ease-in-out;
+
+		&:hover {
+			text-decoration: none;
+			color: $black;
+		}
+	}
 
 	&:hover {
 		border-color: darken(white, 30%);
-		text-decoration: none;
-		color: $black;
 	}
 
 	img {
 		width: 100%;
 		height: auto;
+		max-height: 300px;
+		object-fit: cover;
 		display: block;
 		margin: 0;
 	}
 
 	.link-preview-text {
+		display: block;
 		padding: .8rem 1rem;
 
 		strong {
@@ -538,7 +548,7 @@ LINK PREVIEW CARD
 			margin-bottom: .25rem;
 		}
 
-		span {
+		.link-preview-desc {
 			display: block;
 			font-size: .85em;
 			line-height: 1.4;
@@ -546,6 +556,7 @@ LINK PREVIEW CARD
 		}
 
 		.link-preview-domain {
+			display: block;
 			font-family: $sans-serif;
 			font-size: .75em;
 			color: lighten(black, 55%);
