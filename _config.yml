@@ -24,6 +24,8 @@ navigation:
   url: "/index.html"
 - title: About
   url: "/about"
+- title: Notes
+  url: "/notes"
 - title: Contact
   url: "/contact"
 - title: MZ Privacy Policy

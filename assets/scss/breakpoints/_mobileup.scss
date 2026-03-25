@@ -294,6 +294,31 @@ POST STYLING
 			margin-bottom: 0;
 		}
 	}
+
+	// Note post styling
+	&.note {
+		.postTitle {
+			font-size: 1.5em;
+			margin-top: 1.5rem;
+		}
+
+		.meta {
+			margin-bottom: 1.5rem;
+		}
+
+		.note-link {
+			display: block;
+			font-size: 1.1em;
+			margin-bottom: 1rem;
+			word-break: break-word;
+		}
+
+		.note-domain {
+			color: lighten(black, 50%);
+			font-family: $sans-serif;
+			font-size: .8em;
+		}
+	}
 }
 
 
