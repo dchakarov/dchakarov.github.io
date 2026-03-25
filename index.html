@@ -8,9 +8,13 @@ layout: default
   <ul class="posts noList">
     {% for post in paginator.posts %}
       <li>
-        <span class="date">{{ post.date | date: '%B %d, %Y' }}</span>
+        <span class="date">{{ post.date | date: '%B %d, %Y' }}{% if post.categories contains 'notes' %} &middot; <a href="{{ post.url | prepend: site.baseurl }}">Note</a>{% endif %}</span>
+        {% if post.categories contains 'notes' %}
+        <p>{{ post.content | strip_html | strip_newlines | truncate: 200 }}</p>
+        {% else %}
         <h3><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
         <p>{% if post.description %}{{ post.description }}{% else %}{{ post.excerpt | strip_html }}{% endif %}</p>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>
