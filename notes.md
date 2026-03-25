@@ -10,7 +10,7 @@ layout: default
       {% if post.categories contains 'notes' %}
       <li>
       	<span class="date">{{ post.date | date_to_string }} &middot; <a href="{{ post.url }}">Note</a></span>
-      	<p class="description">{{ post.content | strip_html | strip_newlines | truncate: 200 }}</p>
+      	<p class="description">{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 200 }}{% endif %}</p>
       </li>
       {% endif %}
     {% endfor %}
