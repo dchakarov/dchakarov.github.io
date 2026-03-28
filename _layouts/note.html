@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="post note">
-  <p class="meta">{{ page.date | date: '%B %d, %Y' }} &middot; Note</p>
+  <p class="meta">{{ page.date | date: '%B %d, %Y' }} &middot; {% if page.note_type == 'link' %}Link{% elsif page.note_type == 'youtube' %}Video{% else %}Note{% endif %}</p>
 
   {{ content }}
 </div>
