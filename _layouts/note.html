@@ -6,4 +6,14 @@ layout: default
   <p class="meta">{{ page.date | date: '%B %d, %Y' }} &middot; {% if page.note_type == 'link' %}Link{% elsif page.note_type == 'youtube' %}Video{% else %}Note{% endif %}</p>
 
   {{ content }}
+
+  {% if page.link_url %}
+  <a href="{{ page.link_url }}" class="note-link-card" target="_blank" rel="noopener">
+    {% if page.link_image %}<img src="{{ page.link_image }}" alt="" loading="lazy" onerror="this.remove()">{% endif %}
+    <span class="note-link-info">
+      <strong>{{ page.link_title }}</strong>
+      <span class="note-link-domain">{{ page.link_domain }}</span>
+    </span>
+  </a>
+  {% endif %}
 </div>
