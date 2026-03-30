@@ -4,12 +4,14 @@ date: 2026-03-29 19:07:12 +0000
 layout: note
 categories: [notes]
 note_type: link
-description: "A Refined Authentication Experience | Dan Lages"
+description: "https://danlages.com/engineering/authentication/2026/01/04/refined-authentication-experience.html"
 link_url: "https://danlages.com/engineering/authentication/2026/01/04/refined-authentication-experience.html"
 link_title: "A Refined Authentication Experience | Dan Lages"
 link_domain: "danlages.com"
 link_image: "/assets/images/logo.svg"
 ---
+
+https://danlages.com/engineering/authentication/2026/01/04/refined-authentication-experience.html
 
 {::nomarkdown}
 <div class="link-preview">
