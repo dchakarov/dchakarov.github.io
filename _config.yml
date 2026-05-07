@@ -1,4 +1,3 @@
----
 title: Dimi Chakarov
 timezone: UTC
 collections:
@@ -8,6 +7,10 @@ collections:
   uploads:
     title: Uploads
     output: true
+  apps:
+    title: Apps
+    output: true
+    permalink: /apps/:path/
 description: I code, I design, I lead, I write, I follow, I play, I deliver, I understand,
   I teach. Currently @ Just Eat. Say hi.
 url: https://dchakarov.com
@@ -24,14 +27,12 @@ navigation:
   url: "/index.html"
 - title: About
   url: "/about"
+- title: Apps
+  url: "/apps"
 - title: Notes
   url: "/notes"
 - title: Contact
   url: "/contact"
-- title: MZ Privacy Policy
-  url: "/privacy-policy"
-- title: MZ Support
-  url: "/mz-support"
 social:
   github: dchakarov
   twitter: gimly

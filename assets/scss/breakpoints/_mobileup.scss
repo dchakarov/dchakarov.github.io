@@ -654,3 +654,256 @@ NOTE LINK CARD (homepage)
 	}
 }
 
+
+/***************
+APPS INDEX
+***************/
+
+#apps-index {
+	.pageTitle {
+		margin: 2rem 0 0.5em;
+	}
+
+	.intro {
+		color: lighten(black, 30%);
+		margin-bottom: 2rem;
+	}
+}
+
+.app-grid {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 0;
+	margin: 0;
+
+	li {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border: 0;
+
+		&:before {
+			display: none;
+		}
+	}
+}
+
+.app-card {
+	display: flex;
+	align-items: center;
+	border: 1px solid darken(white, 15%);
+	border-radius: 12px;
+	overflow: hidden;
+	text-decoration: none;
+	color: $black;
+	padding: 1rem;
+	gap: 1rem;
+	transition: border-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+	&:hover {
+		border-color: $primary-color;
+		text-decoration: none;
+		color: $black;
+		transform: translateY(-2px);
+	}
+
+	img {
+		width: 80px;
+		height: 80px;
+		object-fit: cover;
+		flex-shrink: 0;
+		border-radius: 16px;
+		margin: 0;
+		background: lighten(black, 92%);
+	}
+
+	.app-card-info {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+		flex: 1;
+
+		strong {
+			font-family: $sans-serif;
+			font-size: 1em;
+			line-height: 1.3;
+		}
+
+		.app-card-tagline {
+			font-size: .85em;
+			line-height: 1.4;
+			color: lighten(black, 30%);
+			margin-top: .2rem;
+		}
+
+		.app-card-meta {
+			display: flex;
+			flex-wrap: wrap;
+			gap: .35rem;
+			margin-top: .5rem;
+			align-items: center;
+		}
+	}
+}
+
+.status-badge {
+	display: inline-block;
+	font-family: $sans-serif;
+	font-size: .65em;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: .15rem .5rem;
+	border-radius: 999px;
+	line-height: 1.4;
+
+	&.released {
+		background: lighten(black, 92%);
+		color: lighten(black, 30%);
+	}
+
+	&.coming-soon {
+		background: $primary-color;
+		color: white;
+	}
+
+	&.beta {
+		background: $secondary-color;
+		color: white;
+	}
+}
+
+.platform-pill {
+	display: inline-block;
+	font-family: $sans-serif;
+	font-size: .65em;
+	font-weight: 500;
+	color: lighten(black, 35%);
+	border: 1px solid darken(white, 15%);
+	padding: .1rem .45rem;
+	border-radius: 999px;
+	line-height: 1.4;
+}
+
+
+/***************
+APP DETAIL PAGE
+***************/
+
+.app-page {
+	width: 100%;
+}
+
+.app-hero {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem;
+	margin: 2rem 0 2.5rem;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid darken(white, 10%);
+
+	.app-hero-icon {
+		width: 96px;
+		height: 96px;
+		border-radius: 20px;
+		object-fit: cover;
+		margin: 0;
+		background: lighten(black, 92%);
+	}
+
+	.app-hero-text {
+		min-width: 0;
+		width: 100%;
+	}
+
+	.app-hero-name {
+		margin: 0 0 .25rem;
+		font-size: 1.8em;
+		line-height: 1.2;
+	}
+
+	.app-hero-tagline {
+		font-family: $serif;
+		font-size: 1.05em;
+		color: lighten(black, 30%);
+		margin: 0 0 .8rem;
+	}
+
+	.app-hero-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: .35rem;
+		margin-bottom: 1rem;
+		align-items: center;
+	}
+
+	.app-hero-cta {
+		img {
+			margin: 0;
+			max-height: 50px;
+			width: auto;
+		}
+	}
+}
+
+.app-screenshots {
+	display: flex;
+	gap: 1rem;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	margin: 0 0 2.5rem;
+	padding-bottom: .5rem;
+
+	img {
+		flex: 0 0 auto;
+		max-height: 480px;
+		max-width: 100%;
+		width: auto;
+		border-radius: 12px;
+		border: 1px solid darken(white, 12%);
+		margin: 0;
+	}
+}
+
+.app-body {
+	margin-bottom: 2.5rem;
+
+	h2 {
+		margin-top: 2rem;
+	}
+
+	hr {
+		margin: 2.5rem 0;
+		border: 0;
+		border-top: 1px solid darken(white, 10%);
+	}
+}
+
+.app-related {
+	margin: 2.5rem 0;
+	padding: 1.25rem 1.5rem;
+	background: lighten(black, 96%);
+	border-radius: 12px;
+
+	h2 {
+		margin: 0 0 .5rem;
+		font-size: 1.1em;
+	}
+
+	p {
+		margin: 0;
+	}
+}
+
+.app-support {
+	margin-top: 3rem;
+	padding-top: 2rem;
+	border-top: 1px solid darken(white, 10%);
+
+	h2 {
+		margin-bottom: 1rem;
+	}
+}
+

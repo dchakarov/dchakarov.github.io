@@ -233,3 +233,55 @@ CONTACT PAGE STYLING
     margin-right: 0;
 	}
 }
+
+
+/***************
+APPS PAGES (DESKTOP)
+***************/
+
+#apps-index,
+.app-page {
+	width: 100%;
+}
+
+.app-grid {
+	gap: 1.25rem;
+}
+
+.app-card {
+	padding: 1.25rem;
+	gap: 1.25rem;
+
+	img {
+		width: 96px;
+		height: 96px;
+		border-radius: 20px;
+	}
+
+	.app-card-info {
+		strong {
+			font-size: 1.15em;
+		}
+
+		.app-card-tagline {
+			font-size: .9em;
+		}
+	}
+}
+
+.app-hero {
+	flex-direction: row;
+	align-items: center;
+	gap: 1.5rem;
+
+	.app-hero-icon {
+		width: 128px;
+		height: 128px;
+		border-radius: 28px;
+	}
+
+	.app-hero-name {
+		font-size: 2.2em;
+	}
+}
+

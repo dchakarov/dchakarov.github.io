@@ -1,10 +1,18 @@
 ---
-layout: post
-title: "Privacy Policy - MZ: Maze Adventures"
-date: 2025-11-11
+title: "MZ: Maze Adventures — Privacy Policy"
+layout: default
+permalink: /apps/mz-maze-adventures/privacy/
 ---
 
-**Effective Date:** November 11, 2025  
+<div class="post app-page" markdown="1">
+
+# MZ: Maze Adventures — Privacy Policy
+{: .pageTitle }
+
+[&larr; Back to MZ: Maze Adventures](/apps/mz-maze-adventures/)
+{: .intro }
+
+**Effective Date:** November 11, 2025
 **Last Updated:** November 30, 2025
 
 ## Overview
@@ -75,10 +83,12 @@ We may update this Privacy Policy from time to time. Any changes will be posted 
 
 If you have questions about this Privacy Policy or our privacy practices, please contact us:
 
-**Email:** [support@swiftyaf.com](support@swiftyaf.com)
+**Email:** [support@swiftyaf.com](mailto:support@swiftyaf.com)
 
-**Support Page:** [MZ Support](/mz-support)
+**Support:** [Contact MZ Support](/apps/mz-maze-adventures/#support)
 
 ---
 
 *This policy complies with Apple's App Store guidelines, GDPR, and privacy regulations worldwide.*
+
+</div>
