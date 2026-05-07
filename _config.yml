@@ -1,3 +1,4 @@
+---
 title: Dimi Chakarov
 timezone: UTC
 collections:
@@ -23,16 +24,14 @@ plugins:
 - jekyll-paginate
 paginate: 5
 navigation:
-- title: Home
+- title: Blog
   url: "/index.html"
-- title: About
-  url: "/about"
-- title: Apps
-  url: "/apps"
 - title: Notes
   url: "/notes"
-- title: Contact
-  url: "/contact"
+- title: Apps
+  url: "/apps"
+- title: About
+  url: "/about"
 social:
   github: dchakarov
   twitter: gimly
