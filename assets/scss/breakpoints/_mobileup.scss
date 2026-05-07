@@ -163,8 +163,8 @@ PAGE STYLES
 ***************/
 
 .pageTitle {
-	margin: 2rem auto 1em;
-	text-align: center;
+	margin: 2rem 0 1em;
+	text-align: left;
 }
 
 .content {
@@ -214,7 +214,7 @@ POST STYLING
 .post {
 
 	.postTitle {
-		text-align: center;
+		text-align: left;
 		margin-top: 2rem;
 		margin-bottom: 1rem;
 	}
@@ -250,7 +250,7 @@ POST STYLING
 	}
 
 	.meta {
-		text-align: center;
+		text-align: left;
 		color: lighten(black, 50%);
 		font-family: $sans-serif;
 		font-weight: 300;

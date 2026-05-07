@@ -40,13 +40,12 @@ HOMEPAGE STYLING
 
 #home {
 	.posts, .pageTitle, .pagination {
-    width: 75%;
 		float: none;
-		margin: 0 auto 1.5em;
+		margin: 0 0 1.5em;
 	}
 
 	.pageTitle {
-		margin: 2rem auto 1em;
+		margin: 2rem 0 1em;
 	}
 }
 
@@ -140,17 +139,16 @@ POST STYLING
 
 .post {
 	h1, h2, h3, h4, h5, h6, p, ul, ol, dl, .pageTitle {
-    width: 75%;
 		float: none;
-		margin: 0 auto 2rem; 
+		margin: 0 0 2rem;
 	}
 
 	h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-		margin: 1rem auto; 
+		margin: 1rem 0;
 	}
 
 	.pageTitle {
-		margin: 2rem auto 1em;
+		margin: 2rem 0 1em;
 	}
 
 	.featuredImage {
@@ -219,18 +217,10 @@ FOOTER STYLES
 CONTACT PAGE STYLING
 ***************/
 
-.contactContent {
-  max-width: 48%;
-  margin-right: 2%;
-  float: left;
-}
-
 #contact {
 	form {
-    max-width: 48%;
-    width: 48%;
-    float: right;
-    margin-right: 0;
+		max-width: 100%;
+		margin: 0;
 	}
 }
 
