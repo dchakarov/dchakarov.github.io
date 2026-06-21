@@ -897,13 +897,46 @@ APP DETAIL PAGE
 	}
 }
 
-.app-support {
+.app-support,
+.app-notify {
 	margin-top: 3rem;
 	padding-top: 2rem;
 	border-top: 1px solid darken(white, 10%);
 
 	h2 {
 		margin-bottom: 1rem;
+	}
+}
+
+.app-notify {
+	form {
+		display: flex;
+		flex-wrap: wrap;
+		gap: .5rem;
+		align-items: stretch;
+
+		label {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0,0,0,0);
+			white-space: nowrap;
+			border: 0;
+		}
+
+		input[type="email"] {
+			flex: 1 1 240px;
+			min-width: 0;
+			margin: 0;
+		}
+
+		input[type="submit"] {
+			flex: 0 0 auto;
+			margin: 0;
+		}
 	}
 }
 

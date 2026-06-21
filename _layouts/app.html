@@ -50,6 +50,19 @@ layout: default
   </section>
   {% endif %}
 
+  {% if page.notify_formspree_id and page.status == 'coming_soon' %}
+  <section class="app-notify" id="notify">
+    <h2>Stay in the loop</h2>
+    {% if page.notify_intro %}<p class="intro">{{ page.notify_intro }}</p>{% else %}<p class="intro">Drop your email and I'll be in touch when {{ page.name }} is ready &mdash; that might be a TestFlight invite to try it early, or a heads-up the day it hits the App Store. No marketing, no spam.</p>{% endif %}
+    <form action="https://formspree.io/f/{{ page.notify_formspree_id }}" method="POST">
+      <input type="hidden" name="_subject" value="{{ page.name }} launch notification request">
+      <label for="notify-email">Email Address</label>
+      <input type="email" id="notify-email" name="_replyto" class="full-width" required>
+      <input type="submit" value="Notify me" class="button">
+    </form>
+  </section>
+  {% endif %}
+
   {% if page.formspree_id %}
   <section class="app-support" id="support">
     <h2>Contact &amp; Support</h2>
