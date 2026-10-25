@@ -2,7 +2,7 @@
 layout: app
 name: "Joy List"
 tagline: "Lists that stay in sync with the people you share them with."
-order: 2
+order: 3
 status: coming_soon
 icon: /assets/img/apps/joy-list/icon.png
 platforms: [iOS]
